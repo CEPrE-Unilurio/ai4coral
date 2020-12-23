@@ -47,7 +47,9 @@ class ObjectDetection(ObjectDetectionABC):
     
     def __init__(self):
         pass
-
+    
+    def get_detection(self, image_frame):
+        pass
 
 if __name__ == '__main__': 
     
