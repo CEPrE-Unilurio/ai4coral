@@ -13,7 +13,7 @@ cap.set(cv.CAP_PROP_FRAME_HEIGHT,720) # set Height
 
 #Underwater Api url
 urlapi = 'http://127.0.0.1:8080'
-BASE_DIR = Path('/videostream/')
+BASE_DIR = Path('/')
 
 while(True):
     ret, frame = cap.read()
