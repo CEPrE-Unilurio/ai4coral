@@ -7,7 +7,6 @@ from pathlib import Path
 cap = cv.VideoCapture(0)
 
 cap.set(cv.CAP_PROP_FPS, 30.0)
-
 cap.set(cv.CAP_PROP_FRAME_WIDTH,1280) # set Width
 cap.set(cv.CAP_PROP_FRAME_HEIGHT,720) # set Height
 
