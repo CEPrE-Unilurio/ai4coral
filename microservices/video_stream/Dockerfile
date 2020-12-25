@@ -2,4 +2,6 @@ FROM scratch
 
 
 pip install opencv-python
+pip install requests
+
 
