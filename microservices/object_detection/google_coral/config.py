@@ -4,3 +4,4 @@ H = 640
 C = 3
 
 SAMPLE_XML_ANNOTATION_PATH = "annotation.xml"
+FOLDER_NAME = "ai4coral2021"
