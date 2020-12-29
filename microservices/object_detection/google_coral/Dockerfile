@@ -7,6 +7,6 @@ RUN conda create -n ai4coral tensorflow
 SHELL ["conda", "run", "-n", "ai4coral", "/bin/bash", "-c"]
 
 COPY . .
-RUN bash install_requirements.sh
+RUN bash install_packages.sh
 
-ENTRYPOINT ["conda", "run", "-n", "ai4coral", "make", "test"]
+ENTRYPOINT ["conda", "run", "-n", "ai4coral", "make", "run"]

@@ -13,3 +13,7 @@ test:
 clean:
 	docker image prune
 	docker container prune
+help:
+	@echo "----------------------- Help -----------------------"
+	@echo "make run_container - use this to run the api inside a docker  container"
+	@echo "make setup - use this to build the docker image"
