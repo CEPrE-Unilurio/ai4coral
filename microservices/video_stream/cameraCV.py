@@ -7,8 +7,8 @@ from pathlib import Path
 cap = cv.VideoCapture(0)
 
 cap.set(cv.CAP_PROP_FPS, 30.0)
-cap.set(cv.CAP_PROP_FRAME_WIDTH,1280) # set Width
-cap.set(cv.CAP_PROP_FRAME_HEIGHT,720) # set Height
+cap.set(cv.CAP_PROP_FRAME_WIDTH,640) # set Width
+cap.set(cv.CAP_PROP_FRAME_HEIGHT,640) # set Height
 
 #Underwater Api url
 urlapi = 'http://127.0.0.1:8080'
@@ -28,12 +28,15 @@ while(True):
     timestamp = datetime.timestamp(now)
     
     ##Save image and anotation xml
-    # cv.imwrite(BASE_DIR+ str(timestamp) + '.jpg', frame)
+    # cv.imwrite(BASE_DIR+ str(timestamp) + '.png', frame)
 
     # if response.status_code == 200:
-    #     cv.imwrite(str(timestamp) + '.jpg', frame)
-    #     # print('Success!')
+    #     cv.imwrite(str(timestamp) + '.png', frame)
+    #     with open(str(timestamp) + '.xml', 'wb') as f:
+    #         f.write(response.content)
+    #     print('Success!')
     # elif response.status_code == 404:
+    #     cv.imwrite(str(timestamp) + '.png', frame)
     #     print('Not Found.')
     
     k = cv.waitKey(30) & 0xff
