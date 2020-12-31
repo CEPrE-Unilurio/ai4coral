@@ -48,8 +48,6 @@ class TFLiteSingleton:
             print("tflite can not use Edge TPU ")
             print("loading interpreter to run on CPU ")
             TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
-
-            # TFLiteSingleton.interpreter.resize_tensor_input(input_index=0, tensor_size=[1, H, W, C])
             TFLiteSingleton.__instance = TFLiteSingleton()
             return TFLiteSingleton.__instance
     
