@@ -1,4 +1,5 @@
 from config import *
+import detector_base
 from xml.etree import ElementTree as et
 from xml.dom import minidom
 import detect
@@ -10,6 +11,7 @@ class Annotactor:
         self.annotation = et.Element('annotation')
     
     def annotate(self, objs=None):
+        LABELS = detector_base.load_labels(PATH_TO_LABELS)
         for obj in objs:
             bbox = obj.bbox
             

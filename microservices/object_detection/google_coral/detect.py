@@ -126,6 +126,7 @@ def set_input(interpreter, size, resize):
   w, h = size
   scale = min(width / w, height / h)
   w, h = int(w * scale), int(h * scale)
+
   tensor = input_tensor(interpreter)
   tensor.fill(0)  # padding
   _, _, channel = tensor.shape
@@ -145,7 +146,6 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0)):
   class_ids = output_tensor(interpreter, 1)
   scores = output_tensor(interpreter, 2)
   count = int(output_tensor(interpreter, 3))
-
   width, height = input_size(interpreter)
   image_scale_x, image_scale_y = image_scale
   sx, sy = width / image_scale_x, height / image_scale_y

@@ -24,14 +24,51 @@ import detect
 
 #import tflite_runtime.interpreter as tflite
 import tensorflow.lite as tflite
-import platform
 
-EDGETPU_SHARED_LIB = {
-  'Linux': 'libedgetpu.so.1',
-  'Darwin': 'libedgetpu.1.dylib',
-  'Windows': 'edgetpu.dll'
-}[platform.system()]
+from config import *
 
+
+class TFLiteSingleton:
+    
+    __instance = None
+    __interpreter = None 
+    
+    def __init__(self):
+        if TFLiteSingleton.__instance != None:
+            raise NotImplemented("This is a singleton class.")
+    
+    @staticmethod
+    def get_instance(model_file):        
+        if TFLiteSingleton.__instance == None:
+          try:
+            TFLiteSingleton.interpreter = tflite.Interpreter(model_path=model_file,
+              experimental_delegates=[tflite.load_delegate('libedgetpu.so.1', {"device": "usb"})]
+            )
+          except:
+            print("tflite can not use Edge TPU ")
+            print("loading interpreter to run on CPU ")
+            TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
+
+            # TFLiteSingleton.interpreter.resize_tensor_input(input_index=0, tensor_size=[1, H, W, C])
+            TFLiteSingleton.__instance = TFLiteSingleton()
+            return TFLiteSingleton.__instance
+    
+    @property
+    def interpreter(self):
+        return self.__interpreter
+
+    @interpreter.setter
+    def interpreter(self, value):
+        self.__interpreter = value
+
+    def info(self):
+        interpreter = self.interpreter
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+        print("--------------------------------------------- inputs details -----------------------------")
+        print(input_details)
+        print("--------------------------------------------- output details -----------------------------")
+        print(output_details)
 
 def load_labels(path, encoding='utf-8'):
   """Loads labels from file (with or without index numbers).
@@ -55,18 +92,20 @@ def load_labels(path, encoding='utf-8'):
 
 
 def make_interpreter(model_file):
-    model_file, *device = model_file.split('@')
-    try:
-        return tflite.Interpreter(
-            model_path=model_file,
-            experimental_delegates=[
-                tflite.experimental.load_delegate(EDGETPU_SHARED_LIB,
-                    {'device': device[0]} if device else {})
-            ])
-    except:
-        print("unable to delagete to edge edge tpu")
-        print("returning interpreter without delegating some ops to the edge tpu")
-        return tflite.Interpreter(model_path=model_file)
+  tfls = TFLiteSingleton.get_instance(model_file=model_file)
+  return tfls.interpreter 
+    # model_file, *device = model_file.split('@')
+    # try:
+    #     return tflite.Interpreter(
+    #         model_path=model_file,
+    #         experimental_delegates=[
+    #             tflite.experimental.load_delegate(EDGETPU_SHARED_LIB,
+    #                 {'device': device[0]} if device else {})
+    #         ])
+    # except:
+    #     print("unable to delagete to edge edge tpu")
+    #     print("returning interpreter without delegating some ops to the edge tpu")
+    #     return tflite.Interpreter(model_path=model_file)
 
 
 def draw_objects(draw, objs, labels):
