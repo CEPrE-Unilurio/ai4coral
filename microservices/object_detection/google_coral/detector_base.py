@@ -50,7 +50,9 @@ class TFLiteSingleton:
             TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
             TFLiteSingleton.__instance = TFLiteSingleton()
             return TFLiteSingleton.__instance
-    
+        else:
+          return TFLiteSingleton.__instance
+          
     @property
     def interpreter(self):
         return self.__interpreter

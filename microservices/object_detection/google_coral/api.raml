@@ -4,7 +4,7 @@ baseUri: http://api.uod.ai
 version: v1
 protocols: [HTTP]
 
-/detect:
+/detect/{filename}:
   description: "Object detection Service"
   get:
     description: "Get detections for the image frame sent by the client"

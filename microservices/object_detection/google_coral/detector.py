@@ -13,11 +13,10 @@ def greetings():
     return "Hi, I am the AI4Coral RESTful API\n"
 
 
-@post('/detect')
-def do_detections():
+@post('/detect/<filename>')
+def do_detections(filename):
     try:
         try:
-            # must be a Singleton
             interpreter = detector_base.make_interpreter(PATH_TO_MODEL)
             interpreter.allocate_tensors()
 
@@ -29,7 +28,7 @@ def do_detections():
             objs = detect.get_output(interpreter, THRESHOLD, scale)
             
             ann = Annotactor()
-            annotations = ann.get_annotations(objs)
+            annotations = ann.get_annotations(objs=objs, filename=filename)
 
             return annotations
         except:
