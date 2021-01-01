@@ -145,6 +145,10 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0)):
   boxes = output_tensor(interpreter, 0)
   class_ids = output_tensor(interpreter, 1)
   scores = output_tensor(interpreter, 2)
+
+  print(' ------------------------- scores ----------------')
+  print(scores)
+
   count = int(output_tensor(interpreter, 3))
   width, height = input_size(interpreter)
   image_scale_x, image_scale_y = image_scale

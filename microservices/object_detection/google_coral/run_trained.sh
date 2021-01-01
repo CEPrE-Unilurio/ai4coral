@@ -1,5 +1,6 @@
 python3 detector_base.py \
 --model models/core.tflite \
 --labels models/demo_labels.txt \
---input images/fish.jpg \
---output images/fish_processed.jpg
+--input images/starfish.jpg \
+--output images/starfish_processed.jpg \
+--threshold 0.1
