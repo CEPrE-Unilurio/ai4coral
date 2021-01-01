@@ -7,8 +7,8 @@ C = 3
 
 SAMPLE_XML_ANNOTATION_PATH = "annotation.xml"
 FOLDER_NAME = "ai4coral2021"
-PATH_TO_LABELS = 'models/coco_labels.txt'
-# PATH_TO_LABELS = 'models/demo_labels.txt'
-PATH_TO_MODEL = 'models/ssd_mobilenet_v2_coco_quant_postprocess.tflite'
-# PATH_TO_MODEL = 'models/core.tflite'
+# PATH_TO_LABELS = 'models/coco_labels.txt'
+PATH_TO_LABELS = 'models/demo_labels.txt'
+# PATH_TO_MODEL = 'models/ssd_mobilenet_v2_coco_quant_postprocess.tflite'
+PATH_TO_MODEL = 'models/core.tflite'
 THRESHOLD = 0.4
