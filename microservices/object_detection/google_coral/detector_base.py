@@ -28,8 +28,7 @@ import tensorflow.lite as tflite
 from config import *
 
 
-class TFLiteSingleton:
-    
+class TFLiteSingleton:   
     __instance = None
     __interpreter = None 
     
@@ -94,19 +93,7 @@ def load_labels(path, encoding='utf-8'):
 def make_interpreter(model_file):
   tfls = TFLiteSingleton.get_instance(model_file=model_file)
   return tfls.interpreter 
-    # model_file, *device = model_file.split('@')
-    # try:
-    #     return tflite.Interpreter(
-    #         model_path=model_file,
-    #         experimental_delegates=[
-    #             tflite.experimental.load_delegate(EDGETPU_SHARED_LIB,
-    #                 {'device': device[0]} if device else {})
-    #         ])
-    # except:
-    #     print("unable to delagete to edge edge tpu")
-    #     print("returning interpreter without delegating some ops to the edge tpu")
-    #     return tflite.Interpreter(model_path=model_file)
-
+    
 
 def draw_objects(draw, objs, labels):
   """Draws the bounding box and label for each object."""

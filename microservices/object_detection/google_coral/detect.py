@@ -146,15 +146,15 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0)):
   class_ids = output_tensor(interpreter, 1)
   scores = output_tensor(interpreter, 2)
 
-  print(' ------------------------- scores ----------------')
-  print(scores)
-
   count = int(output_tensor(interpreter, 3))
   width, height = input_size(interpreter)
   image_scale_x, image_scale_y = image_scale
   sx, sy = width / image_scale_x, height / image_scale_y
 
   def make(i):
+
+
+    
     ymin, xmin, ymax, xmax = boxes[i]
     return Object(
         id=int(class_ids[i]),

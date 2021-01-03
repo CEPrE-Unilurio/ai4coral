@@ -90,4 +90,3 @@ if __name__ == "__main__":
     annotation_time = time.perf_counter() - start
     print(annotation)
     print('It tooks %.2f ms to do the annotation' % (annotation_time * 1000))
-
