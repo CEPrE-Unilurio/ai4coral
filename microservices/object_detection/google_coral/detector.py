@@ -1,7 +1,7 @@
 from config import PATH_TO_MODEL, THRESHOLD
 import detector_base
 import detect
-from annotactor import Annotactor
+from annotactor import Annotator
 import bottle
 from bottle import route, run,  get, post, request 
 import io
@@ -27,7 +27,7 @@ def do_detections(filename):
             interpreter.invoke()
             objs = detect.get_output(interpreter, THRESHOLD, scale)
             
-            ann = Annotactor()
+            ann = Annotator()
             annotations = ann.get_annotations(objs=objs, filename=filename)
 
             return annotations
