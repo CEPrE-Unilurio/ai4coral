@@ -1,14 +1,12 @@
-FROM python:3.7-stretch
+FROM python:3.7-buster
 
-# ENV VIRTUAL_ENV=/opt/venv
-# RUN python -m venv $VIRTUAL_ENV
-# ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# COPY requirements.txt .
+COPY requirements.txt .
 
-RUN python -m pip install opencv-python
-RUN python -m pip install requests
-
+RUN python -m pip install -r requirements.txt
 
 COPY . .
 CMD [ "python", "cameraCV.py" ]
