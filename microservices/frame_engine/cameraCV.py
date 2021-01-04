@@ -4,7 +4,7 @@ import requests
 import time
 from datetime import datetime
 from pathlib import Path
-from config import *
+from config import W, H, FPS, urlapi, CORAL_DATA_DIR
 
 cap = cv.VideoCapture(0)
 
@@ -25,7 +25,6 @@ def sendApi(frame, framename):
     response = requests.post(url= urlapi +'/'+framename, data=imencoded, timeout=5)
     return response
 
-start = time.time()
 
 while(True):
     ret, frame = cap.read()
@@ -57,12 +56,6 @@ while(True):
     k = cv.waitKey(30) & 0xff
     if k == 27: # press 'ESC' to quit
         break
-
-end = time.time()
-
-seconds = end - start
-print ("Time taken : {0} seconds".format(seconds))
-print ("Frame taken : ", numberFrame)
 
 cap.release()
 cv.destroyAllWindows()
