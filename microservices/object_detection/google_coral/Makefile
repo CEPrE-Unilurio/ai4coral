@@ -1,6 +1,5 @@
 .PHONY = help setup test run clean
 
-
 setup: Dockerfile
 	@echo "building docker image named ai4coral"
 	docker build -t ai4coral .
