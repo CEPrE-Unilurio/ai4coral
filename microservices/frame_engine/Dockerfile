@@ -1,4 +1,4 @@
-FROM python:3.7-buster
+FROM arm64v8/python
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python -m venv $VIRTUAL_ENV
