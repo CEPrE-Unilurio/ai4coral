@@ -16,9 +16,7 @@ def greetings():
 @post('/detect/<filename>')
 def do_detections(filename):
     try:
-        try:
-            start = time.perf_counter()
-    
+        try:    
             interpreter = detector_base.make_interpreter(PATH_TO_MODEL)
             interpreter.allocate_tensors()
 
@@ -31,9 +29,6 @@ def do_detections(filename):
             
             ann = Annotator()
             annotations = ann.get_annotations(objs=objs, filename=filename)
-
-            inference_annotation_time = time.perf_counter() - start
-            print('%.2f ms' % (inference_annotation_time * 1000))
 
             return annotations
         except:
