@@ -1,7 +1,7 @@
 from config import PATH_TO_MODEL, THRESHOLD
 import detector_base
 import detect
-from annotactor import Annotator
+from annotator import Annotator
 import bottle
 from bottle import route, run,  get, post, request 
 import io

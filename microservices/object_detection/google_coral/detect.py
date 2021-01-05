@@ -122,15 +122,15 @@ def set_input(interpreter, size, resize):
   Returns:
     Actual resize ratio, which should be passed to `get_output` function.
   """
-  width, height = input_size(interpreter)
-  w, h = size
-  scale = min(width / w, height / h)
-  w, h = int(w * scale), int(h * scale)
+  interpreter_width, interpreter_height = input_size(interpreter)
+  origi_width, origi_height = size
+  scale = min(interpreter_width / origi_width, interpreter_height / origi_height)
+  origi_width, origi_height = int(origi_width * scale), int(origi_height * scale)
 
   tensor = input_tensor(interpreter)
   tensor.fill(0)  # padding
   _, _, channel = tensor.shape
-  tensor[:h, :w] = np.reshape(resize((w, h)), (h, w, channel))
+  tensor[:origi_height, :origi_width] = np.reshape(resize((origi_width, origi_height)), (origi_height, origi_width, channel))
   return scale, scale
 
 
