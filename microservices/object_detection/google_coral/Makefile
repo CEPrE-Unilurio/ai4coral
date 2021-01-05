@@ -1,8 +1,4 @@
-.PHONY = help setup test run clean
-
-setup: Dockerfile
-	@echo "building docker image named ai4coral"
-	docker build -t ai4coral .
+.PHONY = help run clean run_demo_pretrained run_demo_trained
 
 run:
 	gunicorn -w 12 detector:app --bind 0.0.0.0:8080
@@ -12,10 +8,6 @@ run_demo_pretrained:
 
 run_demo_trained:
 	@bash run_trained.sh
-
-clean:
-	docker image prune
-	docker container prune
 
 help:
 	@echo "----------------------- Help -----------------------"
