@@ -1,0 +1,12 @@
+[Unit]
+Description=Stream Service
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+# ExecStart=videostream.py
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
