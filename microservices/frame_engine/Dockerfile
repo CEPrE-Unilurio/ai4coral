@@ -1,17 +1,12 @@
-FROM continuumio/miniconda
+FROM python:3.7-buster
 
-WORKDIR /opt
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN conda create -n tf tensorflow
+COPY requirements.txt .
 
-SHELL ["conda", "run", "-n", "tf", "/bin/bash", "-c"]
-
-RUN apt-get update &&  apt-get install build-essential -y
-RUN python -m pip install opencv-python
-RUN python -m pip install camera
-RUN apt-get install python-picamera python3-picamera
-RUN python -m pip install requests
+RUN python -m pip install -r requirements.txt
 
 COPY . .
-
-ENTRYPOINT ["conda", "run", "-n", "tf", "make", "run"]
+CMD [ "python", "cameraCV.py" ]
