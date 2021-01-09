@@ -9,7 +9,7 @@
     false - install python3.8.5 
 
 # 2 - Start Server
-    $make run_api 
+    $ make run_api 
 
 # 3 - Start Frame_Engine
     $ make run_frame_engine
