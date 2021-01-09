@@ -4,7 +4,7 @@ from pathlib import Path
 # input shape
 W = 640
 H = 640
-FPS = 12.0
+FPS = 24.0
 
 urlapi = 'http://localhost:8080/detect'
 

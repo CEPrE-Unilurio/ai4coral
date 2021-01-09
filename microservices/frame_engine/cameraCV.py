@@ -4,6 +4,7 @@ import requests
 import time
 from datetime import datetime
 from pathlib import Path
+from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 from config import W, H, FPS, urlapi, CORAL_DATA_DIR
 
 cap = cv.VideoCapture(0)

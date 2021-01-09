@@ -5,3 +5,6 @@ run_api: setup
 
 run_frame_engine:
 	@bash run_frame_engine.bash
+
+run_od:
+	@bash run_od.bash

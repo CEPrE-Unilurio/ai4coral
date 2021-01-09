@@ -31,16 +31,6 @@ if "$1"; then
     apt-get install build-essential -y
     apt-get install apt-utils  -y
 
-    #Create and active virtual environment
-    # python -m pip install virtualenv
-    # python -m pip install –upgrade pipenv
-    # rm -rf venv
-    # python -m virtualenv -p venv/ 
-    # source venv/bin/activate
-
-    #Install all dependencies
-    python -m pip install –upgrade pip
-
 fi
 
 python_version=$(python --version)
@@ -51,6 +41,16 @@ if [ "$python_version" != "3.8.5" ]; then
     alias python=python3.8
 fi
 
-python -m venv  venv 
-    
+# Install Virtualenv
+python -m pip install virtualenv
+
+# Delete old virtualenv
+rm -rf venv
+
+# Create and active virtualenv
+virtualenv  venv 
+source venv/bin/activate
+
+# Install all packages
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt

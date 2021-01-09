@@ -2,17 +2,14 @@
 
 # How to Run the project
 
-1 - Install python create virtaul env and install packages: 
-    $ ./install_packeges.sh
-    
-    if already have virtual env, then
-    you may consider upgrade pip first, if you do, then run:  
-    
-    $ pip install –upgrade pip
-    $ pip install -r requirements.txt
+# 1 - Install python create virtaulenv and install packages: 
 
-2 - Start Server
-    s ./run_server.sh
+    $ make deploy =[true|false] setup
+    true - when python3.8.5 already installed
+    false - install python3.8.5 
 
-3 - Start Frame_Engine
-    $ ./run_frame_engine.sh
+# 2 - Start Server
+    $make run_api 
+
+# 3 - Start Frame_Engine
+    $ make run_frame_engine
