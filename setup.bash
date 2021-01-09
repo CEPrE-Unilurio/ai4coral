@@ -31,6 +31,12 @@ then
     apt-get install build-essential -y
     apt-get install apt-utils  -y
 
+    # Install Virtualenv
+    python -m pip install virtualenv
+
+    # Delete old virtualenv
+    rm -rf venv
+
     virtualenv  venv 
 else
     echo "setting up development environment ..."
