@@ -1,6 +1,6 @@
-
-if "$1"; then
-    echo "deploying ..."    
+if $1 
+then
+    echo "setting up production environment ..."    
     sudo apt-get update 
 
     #Install Python version 3.7
@@ -31,18 +31,20 @@ if "$1"; then
     apt-get install build-essential -y
     apt-get install apt-utils  -y
 
+    virtualenv  venv 
+else
+    echo "setting up development environment ..."
+    # Install Virtualenv
+    python -m pip install virtualenv
+
+    # Delete old virtualenv
+    rm -rf venv
+
+    # Create and active virtualenv
+    virtualenv --python=/usr/bin/python3.8 venv 
 fi
 
-# Install Virtualenv
-python -m pip install virtualenv
-
-# Delete old virtualenv
-rm -rf venv
-
-# Create and active virtualenv
-virtualenv --python=/usr/bin/python3.8 venv 
 source venv/bin/activate
-
 # Install all packages
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
