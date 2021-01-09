@@ -1,7 +1,5 @@
 # input shape
-W = 640
-H = 640
-C = 3
+INPUT_SHAPE = (640, 640, 3)
 
 FOLDER_NAME = "ai4coral2021"
 PATH_TO_LABELS = 'models/coco_labels.txt'

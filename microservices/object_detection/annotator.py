@@ -1,11 +1,11 @@
-from config import *
+from config import INPUT_SHAPE, PATH_TO_LABELS, FOLDER_NAME
 import detector_base
 from xml.etree import ElementTree as et
 from xml.dom import minidom
 import detect
 import time
 
-class Annotactor:
+class Annotator:
     
     def __init__(self):
         self.annotation = et.Element('annotation')
@@ -49,14 +49,14 @@ class Annotactor:
         source = et.SubElement(self.annotation, 'source')
         source.text = name
 
-    def set_size(self, W=W, H=H, C=C):
+    def set_size(self, input_shape=INPUT_SHAPE):
         size = et.SubElement(self.annotation, 'size')
         width = et.SubElement(size, 'width')
-        width.text = str(W)
+        width.text = str(input_shape[1])
         height = et.SubElement(size, 'height')
-        height.text = str(H)
+        height.text = str(input_shape[0])
         depth = et.SubElement(size, 'depth')
-        depth.text = str(C)
+        depth.text = str(input_shape[2])
     
     def prettify(self):
         """Return a pretty-printed XML string for the Element.

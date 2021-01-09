@@ -25,9 +25,6 @@ import detect
 #import tflite_runtime.interpreter as tflite
 import tensorflow.lite as tflite
 
-from config import *
-
-
 class TFLiteSingleton:   
     __instance = None
     __interpreter = None 
@@ -41,8 +38,9 @@ class TFLiteSingleton:
         if TFLiteSingleton.__instance == None:
           try:
             TFLiteSingleton.interpreter = tflite.Interpreter(model_path=model_file,
-              experimental_delegates=[tflite.load_delegate('libedgetpu.so.1', {"device": "usb"})]
-            )
+              experimental_delegates=[tflite.load_delegate('libedgetpu.so.1', {"device": "usb"})])
+            TFLiteSingleton.__instance = TFLiteSingleton()
+            return TFLiteSingleton.__instance
           except:
             print("tflite can not use Edge TPU ")
             print("loading interpreter to run on CPU ")
