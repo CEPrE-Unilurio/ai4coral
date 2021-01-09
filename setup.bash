@@ -33,14 +33,6 @@ if "$1"; then
 
 fi
 
-python_version=$(python --version)
-
-if [ "$python_version" != "3.8.5" ]; then
-    echo "Python 3.8.5 is not your default python"
-    echo "trying .. alias python=python3.8"
-    alias python=python3.8
-fi
-
 # Install Virtualenv
 python -m pip install virtualenv
 
@@ -48,7 +40,7 @@ python -m pip install virtualenv
 rm -rf venv
 
 # Create and active virtualenv
-virtualenv  venv 
+virtualenv --python=/usr/bin/python3.8 venv 
 source venv/bin/activate
 
 # Install all packages
