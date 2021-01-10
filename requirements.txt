@@ -6,7 +6,7 @@ gunicorn
 Pillow
 tensorflow 
 
-# We dont need specify the version os packges, the pip wil install the lastes version
+# We dont need specify the version os packages, the pip wil install the lastes version
 # When we species the version the pip run in endless loop of dependecy
 
 # requests==2.18.4
