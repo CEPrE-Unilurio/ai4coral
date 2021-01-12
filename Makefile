@@ -1,3 +1,5 @@
+OD_DIR=microservices/object_detection
+
 setup:
 	@bash setup.bash $(deploy)
 run_api:
@@ -5,5 +7,4 @@ run_api:
 run_frame_engine:
 	@bash run_frame_engine.bash
 test_object_detection:
-	@bash cd microservices/object_detection
-	@python tests.py
+	$(shell cd $(OD_DIR); python tests.py)
