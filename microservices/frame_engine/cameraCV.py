@@ -13,7 +13,7 @@ cap.set(cv.CAP_PROP_FPS, FPS) # set Frame por Seconds
 cap.set(cv.CAP_PROP_FRAME_WIDTH,W) # set Width
 cap.set(cv.CAP_PROP_FRAME_HEIGHT,H) # set Height
 
-def sendApi(frame, framename):
+def send_api(frame, framename):
 
     # content_type = 'image/jpg'
     # headers = {'content-type': content_type}
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         timestamp = datetime.timestamp(now)
 
         ## Make request do Underwater detection Api
-        response = sendApi(frame, str(timestamp))
+        response = send_api(frame, str(timestamp))
         
         #Save image and anotation xml
         if response.status_code == 200:

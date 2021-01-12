@@ -3,7 +3,7 @@ then
     echo "setting up production environment ..."    
     sudo apt-get update 
 
-    #Install Python version 3.7
+    #Install Python version 3.8.5
     sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update
 
@@ -47,7 +47,7 @@ else
     rm -rf venv
 
     # Create and active virtualenv
-    virtualenv --python=/usr/bin/python3.8 venv 
+    virtualenv  venv 
 fi
 
 source venv/bin/activate
