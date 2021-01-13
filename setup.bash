@@ -20,7 +20,7 @@ then
     ./configure --enable-optimizations
     make -j4
     sudo make altinstall
-    echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc
+    echo "alias python=/usr/local/bin/python3.8" >> ~/.bashrc
     source ~/.bashrc
     cd ..
     #Delete unused files
