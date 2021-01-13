@@ -7,7 +7,7 @@ Pillow
 tensorflow 
 
 # We dont need specify the version os packages, the pip wil install the lastes version
-# When we species the version the pip run in endless loop of dependecy
+# When we specify the version the pip run in endless loop of dependecy
 
 # requests==2.18.4
 # opencv-contrib-python==4.4.0.42

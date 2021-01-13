@@ -32,6 +32,7 @@ then
     apt-get install apt-utils  -y
 
     # Install Virtualenv
+    python -m pip install --upgrade pip
     python -m pip install virtualenv
 
     # Delete old virtualenv
@@ -41,6 +42,7 @@ then
 else
     echo "setting up development environment ..."
     # Install Virtualenv
+    python -m pip install --upgrade pip
     python -m pip install virtualenv
 
     # Delete old virtualenv
