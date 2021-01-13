@@ -47,7 +47,7 @@ else
     rm -rf venv
 
     # Create and active virtualenv
-    virtualenv --python=/usr/bin/python3.8 venv 
+    virtualenv  venv 
 fi
 
 source venv/bin/activate

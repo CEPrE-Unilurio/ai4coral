@@ -28,6 +28,7 @@ import tensorflow.lite as tflite
 class TFLiteSingleton:   
     __instance = None
     __interpreter = None 
+    __is_using_edgetpu = None
     
     def __init__(self):
         if TFLiteSingleton.__instance != None:
@@ -39,33 +40,41 @@ class TFLiteSingleton:
           try:
             TFLiteSingleton.interpreter = tflite.Interpreter(model_path=model_file,
               experimental_delegates=[tflite.load_delegate('libedgetpu.so.1', {"device": "usb"})])
+            TFLiteSingleton.is_using_edgetpu = False
             TFLiteSingleton.__instance = TFLiteSingleton()
             return TFLiteSingleton.__instance
           except:
-            print("tflite can not use Edge TPU ")
-            print("loading interpreter to run on CPU ")
             TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
+            TFLiteSingleton.is_using_edgetpu = False
             TFLiteSingleton.__instance = TFLiteSingleton()
             return TFLiteSingleton.__instance
         else:
           return TFLiteSingleton.__instance
-          
+
+    @property
+    def is_using_edgetpu(self):
+      return self.__is_using_edgetpu
+
+    @is_using_edgetpu.setter
+    def is_using_edgetpu(self, value):
+      self.__is_using_edgetpu = value
+
     @property
     def interpreter(self):
-        return self.__interpreter
+      return self.__interpreter
 
     @interpreter.setter
     def interpreter(self, value):
-        self.__interpreter = value
+      self.__interpreter = value
 
     def info(self):
-        interpreter = self.interpreter
-        input_details = interpreter.get_input_details()
-        output_details = interpreter.get_output_details()
-        print("--------------------------------------------- inputs details -----------------------------")
-        print(input_details)
-        print("--------------------------------------------- output details -----------------------------")
-        print(output_details)
+      interpreter = self.interpreter
+      input_details = interpreter.get_input_details()
+      output_details = interpreter.get_output_details()
+      print("--------------------------------------------- inputs details -----------------------------")
+      print(input_details)
+      print("--------------------------------------------- output details -----------------------------")
+      print(output_details)
 
 def load_labels(path, encoding='utf-8'):
   """Loads labels from file (with or without index numbers).
