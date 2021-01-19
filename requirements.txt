@@ -1,5 +1,5 @@
 requests
-opencv-contrib-python
+opencv-python
 absl-py
 bottle
 gunicorn
@@ -10,7 +10,7 @@ tensorflow
 # When we specify the version the pip run in endless loop of dependecy
 
 # requests==2.18.4
-# opencv-contrib-python==4.4.0.42
+# opencv-python==4.4.0.42
 # absl-py==0.11.0
 # bottle==0.12.19
 # gunicorn==20.0.4

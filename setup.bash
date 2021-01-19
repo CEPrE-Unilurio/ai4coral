@@ -11,7 +11,7 @@ then
     libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev \
     libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
 
-    version=3.8.5
+    version=3.7.3
 
     wget https://www.python.org/ftp/python/$version/Python-$version.tgz
 
@@ -20,7 +20,9 @@ then
     ./configure --enable-optimizations
     make -j4
     sudo make altinstall
-    echo "alias python=/usr/local/bin/python3.8" >> ~/.bashrc
+    
+    echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc
+    echo "export PATH=$PATH:/usr/local/bin/python3.7" >> ~/.bashrc
     source ~/.bashrc
     cd ..
     #Delete unused files
@@ -32,27 +34,26 @@ then
     apt-get install apt-utils  -y
 
     # Install Virtualenv
-    python -m pip install --upgrade pip
-    python -m pip install virtualenv
+    python3 -m pip install --upgrade pip
 
     # Delete old virtualenv
     rm -rf venv
 
-    virtualenv  venv 
+    python3 -m venv --system-site-packages ./venv
+
 else
     echo "setting up development environment ..."
-    # Install Virtualenv
-    python -m pip install --upgrade pip
-    python -m pip install virtualenv
-
+    
+    python3 -m pip install --upgrade pip
+    
     # Delete old virtualenv
     rm -rf venv
 
-    # Create and active virtualenv
-    virtualenv  venv 
+    # Create and active virtualenv 
+    python3 -m venv --system-site-packages ./venv
 fi
 
 source venv/bin/activate
 # Install all packages
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
