@@ -36,7 +36,7 @@ class TFLiteSingleton:
   def __init__(self):
     if TFLiteSingleton.__instance != None:
       raise NotImplemented("This is a singleton class.")
-    
+ 
   @staticmethod
   def get_instance(model_file):        
     if TFLiteSingleton.__instance == None:
