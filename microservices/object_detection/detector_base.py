@@ -19,9 +19,9 @@ import time
 
 from PIL import Image
 from PIL import ImageDraw
-import logging as log
-import detect
 
+import detect
+from config import log
 try:
   import tflite_runtime.interpreter as tflite
 except Exception as e:
