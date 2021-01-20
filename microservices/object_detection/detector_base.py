@@ -22,8 +22,10 @@ from PIL import ImageDraw
 
 import detect
 
-#import tflite_runtime.interpreter as tflite
-import tensorflow.lite as tflite
+try:
+    import tflite_runtime.interpreter as tflite
+except Exception as e:
+    import tensorflow.lite as tflite
 
 class TFLiteSingleton:   
     __instance = None
@@ -39,15 +41,17 @@ class TFLiteSingleton:
         if TFLiteSingleton.__instance == None:
           try:
             TFLiteSingleton.interpreter = tflite.Interpreter(model_path=model_file,
-              experimental_delegates=[tflite.load_delegate('libedgetpu.so.1', {"device": "usb"})])
-            TFLiteSingleton.is_using_edgetpu = False
+              experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
+            TFLiteSingleton.is_using_edgetpu = True
             TFLiteSingleton.__instance = TFLiteSingleton()
+            print('libedgetpu.so.1 succefully loaded ...')
             return TFLiteSingleton.__instance
           except:
+            print('unable to load libedgetpu.so.1 ...')
             TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
             TFLiteSingleton.is_using_edgetpu = False
             TFLiteSingleton.__instance = TFLiteSingleton()
-            return TFLiteSingleton.__instance
+            return TFLiteSingleton.__instance 
         else:
           return TFLiteSingleton.__instance
 
