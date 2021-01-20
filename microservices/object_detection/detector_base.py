@@ -25,6 +25,7 @@ import detect
 #import tflite_runtime.interpreter as tflite
 import tensorflow.lite as tflite
 
+
 class TFLiteSingleton:   
     __instance = None
     __interpreter = None 

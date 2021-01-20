@@ -29,29 +29,33 @@ if __name__ == '__main__':
         # frame = cv.flip(frame, -1) # Flip camera vertically
         # gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-        cv.imshow('frame', frame)
+        if ret == True:
+            
+            cv.imshow('frame', frame)
 
-        #Get the time for generate file name
-        now = datetime.now()
-        timestamp = datetime.timestamp(now)
+            #Get the time for generate file name
+            now = datetime.now()
+            timestamp = datetime.timestamp(now)
 
-        ## Make request do Underwater detection Api
-        response = send_api(frame, str(timestamp))
+            ## Make request do Underwater detection Api
+            response = send_api(frame, str(timestamp))
+            
+            #Save image and anotation xml
+            if response.status_code == 200:
+                cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.png', frame)
+                with open(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.xml', 'wb') as f:
+                    f.write(response.content)
+                print('Success!')
+
+            elif response.status_code == 404:
+                cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.png', frame)
+                print('Not Found.')
         
-        #Save image and anotation xml
-        if response.status_code == 200:
-            cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.png', frame)
-            with open(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.xml', 'wb') as f:
-                f.write(response.content)
-            print('Success!')
-
-        elif response.status_code == 404:
-            cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.png', frame)
-            print('Not Found.')
-        
-        k = cv.waitKey(30) & 0xff
-        if k == 27: # press 'ESC' to quit
-            break
+            k = cv.waitKey(30) & 0xff
+            if k == 27: # press 'ESC' to quit
+                break
+        else:
+            pass
 
 cap.release()
 cv.destroyAllWindows()
