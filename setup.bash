@@ -1,3 +1,7 @@
+# $1 is a flag 
+# it should be  true - when setting up production environment and
+# false - when setting up development environment 
+
 if $1 
 then
     echo "setting up production environment ..."    
