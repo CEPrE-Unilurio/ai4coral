@@ -28,6 +28,7 @@ except Exception as e:
   log.debug('failed to import tflite_runtime, importig tensorflow.lite', exc_info=True)
   import tensorflow.lite as tflite
 
+
 class TFLiteSingleton:   
   __instance = None
   __interpreter = None 
