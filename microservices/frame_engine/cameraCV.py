@@ -54,8 +54,6 @@ if __name__ == '__main__':
             k = cv.waitKey(30) & 0xff
             if k == 27: # press 'ESC' to quit
                 break
-        else:
-            pass
 
 cap.release()
 cv.destroyAllWindows()
