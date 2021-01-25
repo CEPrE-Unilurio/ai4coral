@@ -7,7 +7,7 @@ then
     echo "setting up production environment ..."    
     sudo apt-get update 
 
-    #Install Python version 3.8.5
+    #Install Python version 3.7.3
     sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update
 
