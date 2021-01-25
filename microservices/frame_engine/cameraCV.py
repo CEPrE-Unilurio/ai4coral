@@ -18,7 +18,6 @@ def send_api(frame, framename):
     # content_type = 'image/jpg'
     # headers = {'content-type': content_type}
     imencoded = cv.imencode(".png", frame)[1].tobytes()
-
     response = requests.post(url= urlapi +'/'+framename, data=imencoded, timeout=5)
     return response
     
