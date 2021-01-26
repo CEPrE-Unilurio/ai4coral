@@ -4,6 +4,7 @@ from xml.etree import ElementTree as et
 from xml.dom import minidom
 import detect
 import time
+from timing import timeit
 
 class Annotator:
     
@@ -64,8 +65,9 @@ class Annotator:
         rough_string = et.tostring(self.annotation, 'utf-8')
         reparsed = minidom.parseString(rough_string)
         return reparsed.toprettyxml(indent="  ")
-
-    def get_annotations(self, objs, filename="ai4coral", source="ai4coral"):
+    
+    @timeit
+    def get_annotations(self, objs, filename="ai4coral", source="ai4coral", **kwargs):
         self.set_folder()
         self.set_filename(filename)
         self.set_source(source)
