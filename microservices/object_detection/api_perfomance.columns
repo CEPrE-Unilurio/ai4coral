@@ -1,6 +1,0 @@
-load_image
-make_interpreter
-set_input
-invoke_interpreter
-get_output
-get_annotations

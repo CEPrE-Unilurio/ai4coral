@@ -14,11 +14,10 @@ import time
 
 error_plus_log = logger(name='error_plus_monitor',filename='api_error_plus.log')
 
-performance_log = logger(name='api_performance_monitor',
-                                  filename='api_perfomance.log', 
+performance_log = logger(name='benchmark',
+                                  filename='benchmark.csv', 
                                   fmt='%(message)s')
 
-  
 @route('/')
 def greetings():
   return "Hi, I am the AI4Coral RESTful API\n"
@@ -47,7 +46,9 @@ def do_detections(filename):
     ann = Annotator()
     annotations = ann.get_annotations(objs=objs, filename=filename, 
                                       log_time=logtime_data)
+    
     performance_log.info(to_string(logtime_data))
+    
     return annotations
   except Exception as e:
     response.status = 400

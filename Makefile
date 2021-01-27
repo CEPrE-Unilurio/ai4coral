@@ -8,3 +8,6 @@ run_frame_engine:
 	@bash run_frame_engine.bash
 test_object_detection:
 	$(shell cd $(OD_DIR); python tests.py)
+benchmark_api:
+	$(shell cp -f $(OD_DIR)/benchmark.header $(OD_DIR)/benchmark.csv) 	
+	@bash run_frame_engine.bash
