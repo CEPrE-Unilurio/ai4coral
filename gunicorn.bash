@@ -4,7 +4,7 @@ OBJECT_DETECTION_WSGI_MODULE=detector
 NUM_WORKERS=5
 
 echo "Starting $NAME as `whoami`"
-# source venv/bin/activate
+source venv/bin/activate
 
 cd $OBJECT_DETECTION_DIR
 
