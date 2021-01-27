@@ -1,10 +1,10 @@
 OBJECT_DETECTION_DIR=$(pwd)/microservices/object_detection
 NAME="ai4coral"
 OBJECT_DETECTION_WSGI_MODULE=detector
-NUM_WORKERS=10 
+NUM_WORKERS=5
 
 echo "Starting $NAME as `whoami`"
-source venv/bin/activate
+# source venv/bin/activate
 
 cd $OBJECT_DETECTION_DIR
 

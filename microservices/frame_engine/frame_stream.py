@@ -27,9 +27,10 @@ class VideoStream():
         # Time wich last frame processed 
         self.prev_time = 0
         # Current frame 
-        self.actual_time = 0
+        
 
         while (self.capture.isOpened()):
+            self.actual_time = 0
             (self.status, self.frame) = self.capture.read()
             self.num_fps +=1
 
