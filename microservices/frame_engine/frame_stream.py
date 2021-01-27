@@ -18,9 +18,9 @@ class VideoStream():
         self.capture.set(cv.CAP_PROP_FRAME_WIDTH,W) # set Width
         self.capture.set(cv.CAP_PROP_FRAME_HEIGHT,H) # set Height
         self.num_fps = 0
-        self.t_lock = threading.Lock()
+        self.t_lock = threading.Semaphore(400)
         self.thread_list = []
-        self.thread_id =1
+        self.thread_id =0
         self.framegrab()        
 
     def framegrab(self):        
@@ -68,3 +68,4 @@ class VideoStream():
         # Wait to all thread complete
         for thread in self.thread_list:
             thread.join()
+        cv.destroyAllWindows()
