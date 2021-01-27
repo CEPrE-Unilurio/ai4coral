@@ -5,8 +5,7 @@ import time
 import threading
 from datetime import datetime
 from pathlib import Path
-from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
-from config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format
+from config import data_test_directory
 from frame_stream import VideoStream
     
 if __name__ == '__main__':
@@ -15,7 +14,7 @@ if __name__ == '__main__':
     
     start_time = time.time()
     
-    VideoStream(src = 'test_video.mp4')
+    VideoStream(src = str(data_test_directory) + '/test_video.mp4')
     
     print("Time take to process {:.2f}s" .format(time.time() - start_time))
 
