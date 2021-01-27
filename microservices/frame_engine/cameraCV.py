@@ -2,56 +2,20 @@ import cv2 as cv
 import sys
 import requests
 import time
+import threading
 from datetime import datetime
 from pathlib import Path
-from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
-from config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format
-
-cap = cv.VideoCapture(0)
-
-cap.set(cv.CAP_PROP_FPS, FPS) # set Frame por Seconds
-cap.set(cv.CAP_PROP_FRAME_WIDTH,W) # set Width
-cap.set(cv.CAP_PROP_FRAME_HEIGHT,H) # set Height
-
-def send_api(frame, framename):
-
-    imencoded = cv.imencode(img_format, frame)[1].tobytes()
-
-    response = requests.post(url= urlapi +'/'+framename, data=imencoded, timeout=5)
-    return response
+from config import data_test_directory
+from frame_stream import VideoStream
     
 if __name__ == '__main__':
-            
-    while(True):
-        ret, frame = cap.read()
-        # frame = cv.flip(frame, -1) # Flip camera vertically
-        # gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-        if ret == True:
-            
-            cv.imshow('frame', frame)
+    thread_list = []
+    
+    start_time = time.time()
+    
+    VideoStream(src = str(data_test_directory) + '/test_video.mp4')
+    
+    print("Time take to process {:.2f}s" .format(time.time() - start_time))
 
-            #Get the time for generate file name
-            now = datetime.now()
-            timestamp = datetime.timestamp(now)
-
-            ## Make request do Underwater detection Api
-            response = send_api(frame, str(timestamp))
-            
-            #Save image and anotation xml
-            if response.status_code == 200:
-                cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + img_format, frame)
-                with open(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + '.xml', 'wb') as f:
-                    f.write(response.content)
-                print('Success!')
-
-            elif response.status_code == 404:
-                cv.imwrite(str(CORAL_DATA_DIR) +'/'+ str(timestamp) + img_format, frame)
-                print('Not Found.')
-        
-            k = cv.waitKey(30) & 0xff
-            if k == 27: # press 'ESC' to quit
-                break
-
-cap.release()
 cv.destroyAllWindows()
