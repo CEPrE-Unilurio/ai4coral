@@ -11,6 +11,4 @@ cd $OBJECT_DETECTION_DIR
 exec gunicorn ${OBJECT_DETECTION_WSGI_MODULE}:app \
 --name $NAME \
 --bind 0.0.0.0:8080 \
---workers $NUM_WORKERS \
---log-level=debug \
---log-file=-
+--workers $NUM_WORKERS

@@ -21,11 +21,15 @@ from PIL import Image
 from PIL import ImageDraw
 
 import detect
-from config import log
+from logger import logger
+from timing import timeit
+
+error_plus_log = logger(name='error_plus_monitor', filename='api_error_plus.log')
+
 try:
   import tflite_runtime.interpreter as tflite
 except Exception as e:
-  log.debug('failed to import tflite_runtime, importig tensorflow.lite', exc_info=True)
+  error_plus_log.warning('failed to import tflite_runtime, importig tensorflow.lite')
   import tensorflow.lite as tflite
 
 
@@ -46,13 +50,13 @@ class TFLiteSingleton:
           experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
         TFLiteSingleton.is_using_edgetpu = True
         TFLiteSingleton.__instance = TFLiteSingleton()
-        log.info('dynamic library \'libedgetpu.so.1\' succefully loaded, some ops will be delegated to coral edgetpu')
+        error_plus_log.info('dynamic library \'libedgetpu.so.1\' succefully loaded, some ops will be delegated to coral edgetpu')
         return TFLiteSingleton.__instance
       except Exception as e:
         TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
         TFLiteSingleton.is_using_edgetpu = False
         TFLiteSingleton.__instance = TFLiteSingleton()
-        log.warning('Could not load dynamic library \'libedgetpu.so.1\' none ops will be delegated to coral edgetpu')
+        error_plus_log.warning('Could not load dynamic library \'libedgetpu.so.1\' none ops will be delegated to coral edgetpu')
         return TFLiteSingleton.__instance
     else:
       return TFLiteSingleton.__instance
@@ -82,6 +86,22 @@ class TFLiteSingleton:
     print("--------------------------------------------- output details -----------------------------")
     print(output_details)
 
+@timeit
+def load_image(data, **kwargs):
+  """Load an image from raw bytes.
+
+  Args:
+    data: byte streams
+  Returns:
+    an image object
+  """
+
+  return Image.open(data)
+
+@timeit
+def invoke_interpreter(interpreter, **kwargs):
+  interpreter.invoke()
+
 def load_labels(path, encoding='utf-8'):
   """Loads labels from file (with or without index numbers).
 
@@ -102,9 +122,10 @@ def load_labels(path, encoding='utf-8'):
     else:
       return {index: line.strip() for index, line in enumerate(lines)}
 
-
-def make_interpreter(model_file):
+@timeit
+def make_interpreter(model_file, **kwargs):
   tfls = TFLiteSingleton.get_instance(model_file=model_file)
+  tfls.interpreter.allocate_tensors()
   return tfls.interpreter 
     
 

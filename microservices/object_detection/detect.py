@@ -16,6 +16,7 @@
 
 import collections
 import numpy as np
+from timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
 
@@ -111,7 +112,8 @@ def input_tensor(interpreter):
   return interpreter.tensor(tensor_index)()[0]
 
 
-def set_input(interpreter, size, resize):
+@timeit
+def set_input(interpreter, size, resize, **kwargs):
   """Copies a resized and properly zero-padded image to the input tensor.
 
   Args:
@@ -139,8 +141,8 @@ def output_tensor(interpreter, i):
   tensor = interpreter.tensor(interpreter.get_output_details()[i]['index'])()
   return np.squeeze(tensor)
 
-
-def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0)):
+@timeit
+def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
   """Returns list of detected objects."""
   boxes = output_tensor(interpreter, 0)
   class_ids = output_tensor(interpreter, 1)
