@@ -10,12 +10,10 @@ from frame_stream import VideoStream
     
 if __name__ == '__main__':
 
-    thread_list = []
-    
     start_time = time.time()
     
     VideoStream(src = str(data_test_directory) + '/test_video.mp4')
     
     print("Time take to process {:.2f}s" .format(time.time() - start_time))
 
-cv.destroyAllWindows()
+    cv.destroyAllWindows()
