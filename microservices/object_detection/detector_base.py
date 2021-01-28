@@ -24,15 +24,17 @@ import detect
 from logger import logger
 from timing import timeit
 
-error_plus_log = logger(name='error_plus_monitor', filename='api_error_plus.log')
+error_log = logger(name='error_logging',filename='api_error.log')
+warning_log = logger(name='warning_logging',filename='api_warning.log')
 
 try:
   import tflite_runtime.interpreter as tflite
 except Exception as e:
-  error_plus_log.warning('failed to import tflite_runtime, importig tensorflow.lite')
+  warning_log.warning('failed to import tflite_runtime, importig tensorflow.lite')
   import tensorflow.lite as tflite
 
 
+    
 class TFLiteSingleton:   
   __instance = None
   __interpreter = None 
@@ -50,13 +52,12 @@ class TFLiteSingleton:
           experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
         TFLiteSingleton.is_using_edgetpu = True
         TFLiteSingleton.__instance = TFLiteSingleton()
-        error_plus_log.info('dynamic library \'libedgetpu.so.1\' succefully loaded, some ops will be delegated to coral edgetpu')
         return TFLiteSingleton.__instance
       except Exception as e:
         TFLiteSingleton.interpreter  =  tflite.Interpreter(model_path=model_file)
         TFLiteSingleton.is_using_edgetpu = False
         TFLiteSingleton.__instance = TFLiteSingleton()
-        error_plus_log.warning('Could not load dynamic library \'libedgetpu.so.1\' none ops will be delegated to coral edgetpu')
+        warning_log.warning('Could not load dynamic library \'libedgetpu.so.1\' none ops will be delegated to coral edgetpu')
         return TFLiteSingleton.__instance
     else:
       return TFLiteSingleton.__instance

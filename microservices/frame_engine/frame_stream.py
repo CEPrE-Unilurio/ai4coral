@@ -58,7 +58,8 @@ class VideoStream():
                 self.thread_id +=1
                 thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock)
                 self.thread_list.append(thread)
-                                
+                thread.join()
+                
                 k = cv.waitKey(30) & 0xff
                 if k == 27: # press 'ESC' to quit
                     self.exit()      

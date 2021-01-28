@@ -1,9 +1,8 @@
 from config import PATH_TO_MODEL, THRESHOLD
 import detector_base
-from logger import logger
 import detect
-from annotator import Annotator
-from timing import timeit, to_string
+from logger import logger
+from timing import to_string
 import bottle
 from bottle import route, run,  get, post, request, response
 import io
@@ -11,12 +10,9 @@ import io
 from PIL import Image
 from PIL import ImageDraw
 import time
+from annotator import Annotator
 
-error_plus_log = logger(name='error_plus_monitor',filename='api_error_plus.log')
-
-performance_log = logger(name='benchmark',
-                                  filename='benchmark.csv', 
-                                  fmt='%(message)s')
+timing_log = logger(name='timing_logging', filename='timing.csv', fmt='%(message)s')
 
 @route('/')
 def greetings():
@@ -26,33 +22,22 @@ def greetings():
 def do_detections(filename):
   try:
     logtime_data = {}
-
     data = request.body
     image = detector_base.load_image(data, log_time=logtime_data)
-    
-    interpreter = detector_base.make_interpreter(PATH_TO_MODEL,
-                                                log_time=logtime_data)
-    
+    interpreter = detector_base.make_interpreter(PATH_TO_MODEL, log_time=logtime_data)
     scale = detect.set_input(interpreter, image.size,
                            lambda size: image.resize(size, Image.ANTIALIAS),
                            log_time=logtime_data)
     
-    detector_base.invoke_interpreter(interpreter,
-                                      log_time=logtime_data)
-
-    objs = detect.get_output(interpreter, THRESHOLD, scale,
-                            log_time=logtime_data)
-    
+    detector_base.invoke_interpreter(interpreter, log_time=logtime_data)
+    objs = detect.get_output(interpreter, THRESHOLD, scale, log_time=logtime_data)
     ann = Annotator()
-    annotations = ann.get_annotations(objs=objs, filename=filename, 
-                                      log_time=logtime_data)
-    
-    performance_log.info(to_string(logtime_data))
-    
+    annotations = ann.get_annotations(objs=objs, filename=filename, log_time=logtime_data)
+    timing_log.info(to_string(logtime_data))
     return annotations
   except Exception as e:
     response.status = 400
-    error_plus_log.exception("detection failed")
+    detector_base.error_log.exception("detection failed")
     return "detection failed"
         
 if __name__ == '__main__':

@@ -2,7 +2,6 @@ from config import INPUT_SHAPE, PATH_TO_LABELS, FOLDER_NAME
 import detector_base
 from xml.etree import ElementTree as et
 from xml.dom import minidom
-import detect
 import time
 from timing import timeit
 
@@ -74,21 +73,3 @@ class Annotator:
         self.set_size()
         self.annotate(objs)
         return self.prettify()
-
-
-if __name__ == "__main__":
-
-    bbox1 = detect.BBox(xmin = 1, xmax = 2, ymin = 3, ymax = 4)    
-    obj1 = detect.Object(id = 0, score = 0.8, bbox = bbox1)
-    
-    bbox2 = detect.BBox(xmin = 5, xmax = 6, ymin = 7, ymax = 8)    
-    obj2 = detect.Object(id = 1, score = 0.7, bbox = bbox2)
-    
-    objs = [obj1, obj2]
-    
-    start = time.perf_counter()
-    ann = Annotactor()
-    annotation = ann.get_annotations(objs)
-    annotation_time = time.perf_counter() - start
-    print(annotation)
-    print('It tooks %.2f ms to do the annotation' % (annotation_time * 1000))
