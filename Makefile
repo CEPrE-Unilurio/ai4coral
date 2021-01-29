@@ -9,7 +9,6 @@ run_frame_engine:
 test_object_detection:
 	$(shell cd $(OD_DIR); python tests.py)
 timing_api:
-	$(shell cp -f $(OD_DIR)/timing.header $(OD_DIR)/timing.csv) 	
+	$(shell cp -f log/api_timing_header.csv log/api_timing.csv) 	
 	@bash run_frame_engine.bash
-stress_api:
-	@bash run_frame_engine.bash
+	

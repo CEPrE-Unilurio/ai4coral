@@ -14,6 +14,15 @@
 # limitations under the License.
 """Example using TF Lite to detect objects in a given image."""
 
+from settings.common import DEBUG  
+
+if DEBUG:
+  from settings import development as config
+  import tensorflow.lite as tflite
+else:
+  from settings import production as config
+  import tflite_runtime.interpreter as tflite
+  
 import argparse
 import time
 
@@ -24,17 +33,9 @@ import detect
 from logger import logger
 from timing import timeit
 
-error_log = logger(name='error_logging',filename='api_error.log')
-warning_log = logger(name='warning_logging',filename='api_warning.log')
+error_log = logger(name=config.ERROR_LOG['name'], filename=config.ERROR_LOG['filename'])
+warning_log = logger(name=config.WARNING_LOG['name'], filename=config.WARNING_LOG['filename'])
 
-try:
-  import tflite_runtime.interpreter as tflite
-except Exception as e:
-  warning_log.warning('failed to import tflite_runtime, importig tensorflow.lite')
-  import tensorflow.lite as tflite
-
-
-    
 class TFLiteSingleton:   
   __instance = None
   __interpreter = None 
