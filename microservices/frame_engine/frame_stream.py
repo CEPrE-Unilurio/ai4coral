@@ -62,7 +62,15 @@ class VideoStream():
             if self.status == True:
                 self.num_fps +=1
                 self.frame = cv.resize(self.frame, (W, H), interpolation = cv.INTER_AREA)
-                
+                                
+                now = datetime.now()
+                timestamp = datetime.timestamp(now)
+                # Launch Thread for each frame
+                self.thread_id +=1
+                thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.isSave_Frame)
+                self.thread_list.append(thread)
+                thread.join()
+
                 if self.show_frame:
                     # time when we finish processing for this frame 
                     self.atual_time = time.time() 
@@ -75,13 +83,6 @@ class VideoStream():
                     cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3) 
                     cv.imshow('frame', self.frame)
 
-                now = datetime.now()
-                timestamp = datetime.timestamp(now)
-                # Launch Thread for each frame
-                self.thread_id +=1
-                thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.isSave_Frame)
-                self.thread_list.append(thread)
-                thread.join()
                 
                 k = cv.waitKey(30) & 0xff
                 if k == 27: # press 'ESC' to quit
