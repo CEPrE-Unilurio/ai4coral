@@ -11,4 +11,6 @@ test_object_detection:
 timing_api:
 	$(shell cp -f log/api_timing_header.csv log/api_timing.csv) 	
 	@bash run_frame_engine.bash
+stress_api: 
+	@bash stress_api.sh
 	
