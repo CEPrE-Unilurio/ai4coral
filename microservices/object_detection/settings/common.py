@@ -18,6 +18,7 @@ TIMING_LOG = {'filename': join(LOG_DIR, 'api_timing.csv'), 'name': 'api_timing_l
 ###### MODEL CONFIGURATION ################################
 
 INPUT_SHAPE = (640, 640, 3)
-FOLDER_NAME = "ai4coral2021"
+FOLDER_NAME = "ai4coral"
+SOURCE_NAME = 'ai4coral'
 PATH_TO_LABELS = join(OD_DIR, 'models/coco_labels.txt')
 THRESHOLD = 0.4
