@@ -16,6 +16,7 @@ then
     libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
 
     version=3.7.3
+    version_short=3.7
 
     wget https://www.python.org/ftp/python/$version/Python-$version.tgz
 
@@ -25,8 +26,8 @@ then
     make -j4
     sudo make altinstall
     
-    echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc
-    echo "export PATH=$PATH:/usr/local/bin/python3.7" >> ~/.bashrc
+    echo "alias python=/usr/local/bin/python$version_short" >> ~/.bashrc
+    echo "export PATH=$PATH:/usr/local/bin/python$version_short" >> ~/.bashrc
     source ~/.bashrc
     cd ..
     #Delete unused files
@@ -57,7 +58,7 @@ else
     python3 -m venv --system-site-packages ./venv
 fi
 
-source venv/bin/activate
-# Install all packages
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+# source venv/bin/activate
+# # Install all packages
+# python3 -m pip install --upgrade pip
+# python3 -m pip install -r requirements.txt

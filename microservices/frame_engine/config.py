@@ -7,6 +7,7 @@ H = 640
 FPS = 24.0
 
 img_format = '.png'
+num_thread = 4
 
 urlapi = 'http://localhost:8080/detect'
 

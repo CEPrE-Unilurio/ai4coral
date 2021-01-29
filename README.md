@@ -1,5 +1,9 @@
 # ai4coral
 
+# Overview
+The ai4coral is based on client-server arquitecture
+![Alt text](ai4coral_overview.png?raw=true "Title")
+
 # How to Run the project
 
 # 1 - Install python create virtaulenv and install packages: 
