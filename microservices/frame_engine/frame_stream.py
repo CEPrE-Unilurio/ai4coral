@@ -43,7 +43,8 @@ class VideoStream():
         self.thread_list = []
         self.thread_id = 0
         self.show_frame = show_frame
-        self.isSave_Frame = isSave_Frame  
+        self.isSave_Frame = isSave_Frame
+        self.start_time = time.time()  
         self.framegrab()
               
     def framegrab(self):
@@ -82,7 +83,6 @@ class VideoStream():
                     # puting the FPS count on the frame
                     cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3) 
                     cv.imshow('frame', self.frame)
-
                 
                 k = cv.waitKey(30) & 0xff
                 if k == 27: # press 'ESC' to quit
@@ -93,5 +93,5 @@ class VideoStream():
         # Wait to all thread complete
         for thread in self.thread_list:
             thread.join()
-        print(self.num_fps)
+        print('The program process {num_fps} frame in {time:.2f}s ' .format(num_fps=self.num_fps, time=time.time() - self.start_time))
         cv.destroyAllWindows()
