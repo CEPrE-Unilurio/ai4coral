@@ -1,5 +1,8 @@
 # ai4coral
 
+# Description
+This project is meant to be deployed in Raspberry for collect data colletion.
+
 # Overview
 The ai4coral is based on client-server arquitecture
 ![Alt text](ai4coral_overview.png?raw=true "Title")

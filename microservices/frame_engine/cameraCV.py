@@ -1,8 +1,5 @@
-import cv2 as cv
 import sys
-import requests
 import time
-import threading
 from datetime import datetime
 from pathlib import Path
 from config import data_test_directory
