@@ -69,12 +69,6 @@ ai4coral/
 │       │   ├── development.py
 │       │   ├── __init__.py
 │       │   ├── production.py
-│       │   └── __pycache__
-│       │       ├── common.cpython-37.pyc
-│       │       ├── common.cpython-38.pyc
-│       │       ├── development.cpython-38.pyc
-│       │       ├── __init__.cpython-37.pyc
-│       │       └── __init__.cpython-38.pyc
 │       ├── tests
 │       │   ├── images
 │       │   │   ├── fish_processed.jpg
