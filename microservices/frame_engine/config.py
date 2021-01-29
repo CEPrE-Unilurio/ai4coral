@@ -16,4 +16,4 @@ CORAL_DATA_DIR = Path(__file__).parent.parent / "../Coral_Data/"
 if not os.path.exists(CORAL_DATA_DIR):
     os.makedirs(CORAL_DATA_DIR)
 
-data_test_directory = Path(__file__).parent / "../object_detection/images/"
+data_test_directory = Path(__file__).parent / "../object_detection/tests/images/"
