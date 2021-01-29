@@ -1,4 +1,4 @@
-from config import INPUT_SHAPE, PATH_TO_LABELS, FOLDER_NAME
+from settings import common as config
 import detector_base
 from xml.etree import ElementTree as et
 from xml.dom import minidom
@@ -11,7 +11,7 @@ class Annotator:
         self.annotation = et.Element('annotation')
     
     def annotate(self, objs=None):
-        LABELS = detector_base.load_labels(PATH_TO_LABELS)
+        LABELS = detector_base.load_labels(config.PATH_TO_LABELS)
         for obj in objs:
             bbox = obj.bbox
             
@@ -37,7 +37,7 @@ class Annotator:
             score = et.SubElement(object, 'score')
             score.text = str(obj.score)
 
-    def set_folder(self, name=FOLDER_NAME):
+    def set_folder(self, name=config.FOLDER_NAME):
         folder = et.SubElement(self.annotation, 'folder')
         folder.text = name
         
@@ -49,7 +49,7 @@ class Annotator:
         source = et.SubElement(self.annotation, 'source')
         source.text = name
 
-    def set_size(self, input_shape=INPUT_SHAPE):
+    def set_size(self, input_shape=config.INPUT_SHAPE):
         size = et.SubElement(self.annotation, 'size')
         width = et.SubElement(size, 'width')
         width.text = str(input_shape[1])
