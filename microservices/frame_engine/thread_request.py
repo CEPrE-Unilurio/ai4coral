@@ -74,3 +74,4 @@ class Request_api (threading.Thread):
             
             self.session.close()
             return None        
+

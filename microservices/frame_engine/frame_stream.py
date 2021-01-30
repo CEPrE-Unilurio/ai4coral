@@ -95,3 +95,4 @@ class VideoStream():
             # thread.join()
         print('The program process {num_fps} frame in {time:.2f}s ' .format(num_fps=self.num_fps, time=time.time() - self.start_time))
         cv.destroyAllWindows()
+
