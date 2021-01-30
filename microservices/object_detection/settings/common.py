@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 import os
 
-DEBUG = False # DEBUG = False when running in production
+DEBUG = True # DEBUG = False when running in production
 
 ###### BASE PATH CONFIGURATION ################################
 
