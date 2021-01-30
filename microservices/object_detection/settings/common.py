@@ -1,9 +1,10 @@
-from os.path import abspath, basename, dirname, join, normpath
-from pathlib import Path
-import sys
-import os
+from os.path import abspath, basename, dirname, join
+import platform 
 
-DEBUG = True # DEBUG = False when running in production
+if platform.machine() == 'armv7l':
+  DEBUG = False # production
+else:
+  DEBUG = True
 
 ###### BASE PATH CONFIGURATION ################################
 
