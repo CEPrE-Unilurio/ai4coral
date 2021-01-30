@@ -69,7 +69,7 @@ class VideoStream():
                 # Launch Thread for each frame
                 self.thread_id +=1
                 thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.isSave_Frame)
-                self.thread_list.append(thread)
+#                self.thread_list.append(thread)
                 thread.join()
 
                 if self.show_frame:
@@ -91,7 +91,7 @@ class VideoStream():
     def exit(self):
         self.capture.release() 
         # Wait to all thread complete
-        for thread in self.thread_list:
-            thread.join()
+ #       for thread in self.thread_list:
+  #          thread.join()
         print('The program process {num_fps} frame in {time:.2f}s ' .format(num_fps=self.num_fps, time=time.time() - self.start_time))
         cv.destroyAllWindows()
