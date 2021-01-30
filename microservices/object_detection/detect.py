@@ -17,7 +17,8 @@
 import collections
 import numpy as np
 from PIL import Image
-
+from annotator import PascalVocXML
+from settings import common as config
 from timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
@@ -101,6 +102,26 @@ class BBox(collections.namedtuple('BBox', ['xmin', 'ymin', 'xmax', 'ymax'])):
     return area / (a.area + b.area - area)
 
 
+def load_labels(path, encoding='utf-8'):
+  """Loads labels from file (with or without index numbers).
+
+  Args:
+    path: path to label file.
+    encoding: label file encoding.
+  Returns:
+    Dictionary mapping indices to labels.
+  """
+  with open(path, 'r', encoding=encoding) as f:
+    lines = f.readlines()
+    if not lines:
+      return {}
+
+    if lines[0].split(' ', maxsplit=1)[0].isdigit():
+      pairs = [line.split(' ', maxsplit=1) for line in lines]
+      return {int(index): label.strip() for index, label in pairs}
+    else:
+      return {index: line.strip() for index, line in enumerate(lines)}
+
 def input_size(interpreter):
   """Returns input image size as (width, height) tuple."""
   _, height, width, _ = interpreter.get_input_details()[0]['shape']
@@ -149,7 +170,7 @@ def output_tensor(interpreter, i):
 
 @timeit
 def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
-  """Returns list of detected objects."""
+  """Returns a Pascal VOC xml containing the detections."""
   boxes = output_tensor(interpreter, 0)
   class_ids = output_tensor(interpreter, 1)
   scores = output_tensor(interpreter, 2)
@@ -160,9 +181,6 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
   sx, sy = width / image_scale_x, height / image_scale_y
 
   def make(i):
-
-
-    
     ymin, xmin, ymax, xmax = boxes[i]
     return Object(
         id=int(class_ids[i]),
@@ -172,4 +190,15 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
                   xmax=xmax,
                   ymax=ymax).scale(sx, sy).map(int))
 
-  return [make(i) for i in range(count) if scores[i] >= score_threshold]
+  if config.LABELS is None:
+    config.LABELS = load_labels(config.PATH_TO_LABELS)
+    
+  pvx = PascalVocXML(filename=kwargs['filename'])
+    
+  for i in range(count):
+    if scores[i] >= score_threshold:
+      obj = make(i)
+      label = config.LABELS.get(obj.id, obj.id)
+      pvx.add_object_element(obj, label)
+
+  return pvx.get_annotations()

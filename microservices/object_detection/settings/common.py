@@ -23,3 +23,6 @@ FOLDER_NAME = "ai4coral"
 SOURCE_NAME = 'ai4coral'
 PATH_TO_LABELS = join(OD_DIR, 'models/coco_labels.txt')
 THRESHOLD = 0.4
+
+LABELS = None
+  

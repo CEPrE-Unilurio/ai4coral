@@ -16,7 +16,6 @@ import io
 from PIL import Image
 from PIL import ImageDraw
 import time
-from annotator import PascalVocXML
 
 timing_log = logger(name=config.TIMING_LOG['name'], 
                     filename=config.TIMING_LOG['filename'], 
@@ -37,9 +36,11 @@ def do_detections(filename):
     
 
     detector_base.invoke_interpreter(interpreter, log_time=logtime_data)
-    objs = detect.get_output(interpreter, config.THRESHOLD, scale, log_time=logtime_data)
-    pvx = PascalVocXML(objs=objs, filename=filename)
-    annotations = pvx.get_annotations(log_time=logtime_data)
+    annotations = detect.get_output(interpreter, 
+                                    config.THRESHOLD, 
+                                    scale, 
+                                    log_time=logtime_data,
+                                    filename=filename)
     timing_log.info(to_string(logtime_data))
     return annotations
   except Exception as e:
