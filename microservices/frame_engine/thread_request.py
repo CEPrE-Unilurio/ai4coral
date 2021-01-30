@@ -45,8 +45,6 @@ class Request_api (threading.Thread):
         
         with self.t_Lock: 
 
-            # self.t_Lock.acquire()
-             
             print('Initialize thread -{thread_id} at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
             
             self.imencoded = cv.imencode('.PNG', self.frame)[1].tobytes()
@@ -55,7 +53,9 @@ class Request_api (threading.Thread):
                     
             try:
                                        
-                self.response = self.session.post(url= urlapi +'/'+ self.framename, data=self.imencoded)            
+                self.response = self.session.post(url= urlapi +'/'+ self.framename, data=self.imencoded)
+                
+                print(self.response.status_code)            
 
                 if self.isSave_Frame:
                     cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
@@ -74,3 +74,4 @@ class Request_api (threading.Thread):
             
             self.session.close()
             return None        
+

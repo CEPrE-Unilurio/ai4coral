@@ -33,10 +33,9 @@ def do_detections(filename):
     data = request.body
     image = detector_base.load_image(data, log_time=logtime_data)
     interpreter = detector_base.make_interpreter(config.PATH_TO_MODEL, log_time=logtime_data)
-    scale = detect.set_input(interpreter, image.size,
-                           lambda size: image.resize(size, Image.ANTIALIAS),
-                           log_time=logtime_data)
+    scale = detect.set_input(interpreter, image.size, image, log_time=logtime_data)
     
+
     detector_base.invoke_interpreter(interpreter, log_time=logtime_data)
     objs = detect.get_output(interpreter, config.THRESHOLD, scale, log_time=logtime_data)
     pvx = PascalVocXML(objs=objs, filename=filename)
