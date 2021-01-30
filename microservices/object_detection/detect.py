@@ -20,7 +20,6 @@ from timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
 
-
 class BBox(collections.namedtuple('BBox', ['xmin', 'ymin', 'xmax', 'ymax'])):
   """Bounding box.
 
@@ -111,7 +110,7 @@ def input_tensor(interpreter):
   tensor_index = interpreter.get_input_details()[0]['index']
   return interpreter.tensor(tensor_index)()[0]
 
-
+  
 @timeit
 def set_input(interpreter, size, resize, **kwargs):
   """Copies a resized and properly zero-padded image to the input tensor.
@@ -129,8 +128,10 @@ def set_input(interpreter, size, resize, **kwargs):
   scale = min(interpreter_width / origi_width, interpreter_height / origi_height)
   origi_width, origi_height = int(origi_width * scale), int(origi_height * scale)
 
+  
   tensor = input_tensor(interpreter)
   tensor.fill(0)  # padding
+
   _, _, channel = tensor.shape
   tensor[:origi_height, :origi_width] = np.reshape(resize((origi_width, origi_height)), (origi_height, origi_width, channel))
   return scale, scale

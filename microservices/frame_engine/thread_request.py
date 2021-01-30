@@ -33,7 +33,7 @@ class Request_api (threading.Thread):
     """
 
     def __init__(self, frame, framename, threadID, t_Lock, isSave_Frame):
-        threading.Thread.__init__(self, daemon=True)    
+        threading.Thread.__init__(self, daemon=False)    
         self.frame = frame
         self.framename = framename
         self.threadID = threadID

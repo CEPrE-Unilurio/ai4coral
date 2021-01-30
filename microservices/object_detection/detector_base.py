@@ -99,7 +99,7 @@ def load_image(data, **kwargs):
   """
 
   return Image.open(data)
-
+  
 @timeit
 def invoke_interpreter(interpreter, **kwargs):
   interpreter.invoke()
