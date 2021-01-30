@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 # input shape
-W = 640
-H = 640
+W = 300
+H = 300
 FPS = 24.0
 
 img_format = '.png'

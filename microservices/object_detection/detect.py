@@ -16,6 +16,8 @@
 
 import collections
 import numpy as np
+from PIL import Image
+
 from timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
@@ -112,28 +114,31 @@ def input_tensor(interpreter):
 
   
 @timeit
-def set_input(interpreter, size, resize, **kwargs):
+def set_input(interpreter, size, image, **kwargs):
   """Copies a resized and properly zero-padded image to the input tensor.
 
   Args:
     interpreter: Interpreter object.
     size: original image size as (width, height) tuple.
-    resize: a function that takes a (width, height) tuple, and returns an RGB
-      image resized to those dimensions.
+    image: an Image Object
   Returns:
     Actual resize ratio, which should be passed to `get_output` function.
   """
+
   interpreter_width, interpreter_height = input_size(interpreter)
   origi_width, origi_height = size
   scale = min(interpreter_width / origi_width, interpreter_height / origi_height)
   origi_width, origi_height = int(origi_width * scale), int(origi_height * scale)
-
+  resize = lambda size: image if scale == 1 else image.resize(size, Image.ANTIALIAS)   
   
   tensor = input_tensor(interpreter)
   tensor.fill(0)  # padding
 
   _, _, channel = tensor.shape
+  
   tensor[:origi_height, :origi_width] = np.reshape(resize((origi_width, origi_height)), (origi_height, origi_width, channel))
+  
+  
   return scale, scale
 
 
