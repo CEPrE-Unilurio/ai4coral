@@ -1,6 +1,6 @@
 import unittest
 from  detector_base import TFLiteSingleton
-from config import PATH_TO_MODEL
+from settings.production import PATH_TO_MODEL
 
 class TestTFLiteSingleton(unittest.TestCase):
 
