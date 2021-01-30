@@ -45,8 +45,6 @@ class Request_api (threading.Thread):
         
         with self.t_Lock: 
 
-            # self.t_Lock.acquire()
-             
             print('Initialize thread -{thread_id} at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
             
             self.imencoded = cv.imencode('.PNG', self.frame)[1].tobytes()
