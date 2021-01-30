@@ -4,6 +4,9 @@
 
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
 
+To reference another repository from the organisation, type CEPrE-Unilurio/repo.
+To reference an issue/PR of another repository in the organisation, type CEPrE-Unilurio/repo#number.
+
 Fixes # (issue)
 
 ## Type of change
