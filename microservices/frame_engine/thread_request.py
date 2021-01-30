@@ -53,7 +53,9 @@ class Request_api (threading.Thread):
                     
             try:
                                        
-                self.response = self.session.post(url= urlapi +'/'+ self.framename, data=self.imencoded)            
+                self.response = self.session.post(url= urlapi +'/'+ self.framename, data=self.imencoded)
+                
+                print(self.response.status_code)            
 
                 if self.isSave_Frame:
                     cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
