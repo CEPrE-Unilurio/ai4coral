@@ -71,6 +71,7 @@ fi
 # python3 -m pip install -r requirements.txt
 
 cp ~/.bashrc ~/.bashrc.back
+cp ~/.bashrc ~/.bashrc.back.back
 rm ~/.bashrc 
-python python_path.py
+python scripts/python_path.py
 source ~/.bashrc
