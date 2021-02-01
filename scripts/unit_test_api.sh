@@ -1,4 +1,7 @@
 OD_DIR=$(pwd)/microservices/object_detection
+
+export PYTHONPATH=$OD_DIR:$PYTHONPATH
+
 cd $OD_DIR/tests
 
-python stress_api.py
+python unit_tests.py

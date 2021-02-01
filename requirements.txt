@@ -6,6 +6,8 @@ gunicorn
 Pillow
 tensorflow 
 
+aiohttp 
+aiofiles 
 # We dont to need specify the version os packages, the pip wil install the lastes version
 # When we specify the version the pip run in endless loop of dependecy
 

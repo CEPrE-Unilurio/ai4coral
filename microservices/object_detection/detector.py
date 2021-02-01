@@ -5,10 +5,10 @@ if DEBUG:
 else:
   from settings import production as config
 
-import detector_base
-import detect
-from logger import logger
-from timing import to_string
+from core import detector_base
+from core import detect
+from utils.logger import logger
+from utils.timing import to_string
 import bottle
 from bottle import route, run,  get, post, request, response
 import io

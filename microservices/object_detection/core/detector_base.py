@@ -29,9 +29,9 @@ import time
 from PIL import Image
 from PIL import ImageDraw
 
-import detect
-from logger import logger
-from timing import timeit
+from core import detect
+from utils.logger import logger
+from utils.timing import timeit
 
 error_log = logger(name=config.ERROR_LOG['name'], filename=config.ERROR_LOG['filename'])
 warning_log = logger(name=config.WARNING_LOG['name'], filename=config.WARNING_LOG['filename'])

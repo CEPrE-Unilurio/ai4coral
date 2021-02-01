@@ -17,9 +17,9 @@
 import collections
 import numpy as np
 from PIL import Image
-from annotator import PascalVocXML
+from utils.annotator import PascalVocXML
 from settings import common as config
-from timing import timeit
+from utils.timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
 
@@ -159,7 +159,7 @@ def set_input(interpreter, size, image, **kwargs):
   
   tensor[:origi_height, :origi_width] = np.reshape(resize((origi_width, origi_height)), (origi_height, origi_width, channel))
   
-  
+ 
   return scale, scale
 
 

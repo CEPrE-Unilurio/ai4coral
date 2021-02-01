@@ -1,6 +1,13 @@
-# $1 is a flag 
-# it should be  true - when setting up production environment and
+#!/bin/bash
+#
+# Copyright 2019 Google LLC
+
+# $1, the allowed parameters are: true | false
+ 
+# true - when setting up production environment 
 # false - when setting up development environment 
+
+# for more detail refer to READEME.md
 
 if $1 
 then
@@ -62,3 +69,8 @@ fi
 # # Install all packages
 # python3 -m pip install --upgrade pip
 # python3 -m pip install -r requirements.txt
+
+cp ~/.bashrc ~/.bashrc.back
+rm ~/.bashrc 
+python python_path.py
+source ~/.bashrc
