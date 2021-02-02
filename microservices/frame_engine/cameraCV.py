@@ -16,7 +16,7 @@ if __name__ == '__main__':
         Examples of usage:
             1 - VideoStream() - this will run openning the camera with id=0 and will display and save frame
             2 - VideoStream(show_frame=False) - this will not display the windows with frame
-            3 - VideoStream(save_frame=False) - this will not save frame
+            3 - VideoStream(isSave_Frame=False) - this will not save frame
             
     """
     

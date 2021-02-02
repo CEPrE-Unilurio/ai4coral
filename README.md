@@ -21,7 +21,7 @@ The ai4coral is based on client-server arquitecture
 # 3 - Start Frame_Engine
     $ make run_frame_engine
     
-# Project Structure
+# 4 - Project Structure
 ``` bash
 ai4coral/
 ├── ai4coral_overview.png

@@ -14,4 +14,6 @@ timing_api:
 stress_api: 
 	$(shell cp -f log/api_timing_header.csv log/api_timing.csv) 	
 	@bash scripts/stress_api.sh
+cpu_monitor:
+	@bash scripts/cpu_monitor.sh
 	
