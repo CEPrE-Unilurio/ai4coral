@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# Copyright 2019 Google LLC
+# Copyright 2021  CEPrE-Unilurio 
 
 # $1, the allowed parameters are: true | false
  
 # true - when setting up production environment 
 # false - when setting up development environment 
 
-# for more detail refer to READEME.md
+# for more details refer to README.md
 
 if $1 
 then
