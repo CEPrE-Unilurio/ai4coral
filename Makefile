@@ -1,16 +1,16 @@
 OD_DIR=microservices/object_detection
 
 setup:
-	@bash setup.bash $(deploy)
+	@bash scripts/setup.sh $(deploy)
 run_api:
-	@bash gunicorn.bash
+	@bash scripts/run_api.sh
 run_frame_engine:
-	@bash run_frame_engine.bash
-test_object_detection:
-	$(shell cd $(OD_DIR); python tests.py)
+	@bash scripts/run_frame_engine.sh
+unit_test_api:
+	$(shell cd $(OD_DIR); python tests/unit_tests.py)
 timing_api:
 	$(shell cp -f log/api_timing_header.csv log/api_timing.csv) 	
-	@bash run_frame_engine.bash
+	@bash run_frame_engine.sh
 stress_api: 
 	$(shell cp -f log/api_timing_header.csv log/api_timing.csv) 	
 	@bash scripts/stress_api.sh
