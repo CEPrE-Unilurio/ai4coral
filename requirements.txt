@@ -1,16 +1,18 @@
 requests
-opencv-contrib-python
+opencv-python
 absl-py
 bottle
 gunicorn
 Pillow
 tensorflow 
 
-# We dont need specify the version os packages, the pip wil install the lastes version
-# When we species the version the pip run in endless loop of dependecy
+aiohttp 
+aiofiles 
+# We dont to need specify the version os packages, the pip wil install the lastes version
+# When we specify the version the pip run in endless loop of dependecy
 
 # requests==2.18.4
-# opencv-contrib-python==4.4.0.42
+# opencv-python==4.4.0.42
 # absl-py==0.11.0
 # bottle==0.12.19
 # gunicorn==20.0.4
