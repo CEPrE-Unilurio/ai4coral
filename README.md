@@ -28,7 +28,6 @@ The ai4coral is based on client-server arquitecture
 ``` bash
 ai4coral/
 ├── coral_data
-├── Coral_Data
 ├── logs
 ├── microservices
 │   ├── Coral_Data
