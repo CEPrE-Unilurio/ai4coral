@@ -14,13 +14,13 @@
 # limitations under the License.
 """Example using TF Lite to detect objects in a given image."""
 
-from settings.common import DEBUG  
+from od.settings.common import DEBUG  
 
 if DEBUG:
-  from settings import development as config
+  from od.settings import development as config
   import tensorflow.lite as tflite
 else:
-  from settings import production as config
+  from od.settings import production as config
   import tflite_runtime.interpreter as tflite
   
 import argparse
@@ -29,9 +29,9 @@ import time
 from PIL import Image
 from PIL import ImageDraw
 
-from core import detect
-from utils.logger import logger
-from utils.timing import timeit
+from od.core import detect
+from od.utils.logger import logger
+from od.utils.timing import timeit
 
 error_log = logger(name=config.ERROR_LOG['name'], filename=config.ERROR_LOG['filename'])
 warning_log = logger(name=config.WARNING_LOG['name'], filename=config.WARNING_LOG['filename'])

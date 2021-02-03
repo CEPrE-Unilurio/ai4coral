@@ -1,4 +1,4 @@
-OD_DIR=microservices/object_detection
+OD_DIR=microservices/od
 
 setup:
 	@bash scripts/setup.sh $(deploy)

@@ -17,9 +17,9 @@
 import collections
 import numpy as np
 from PIL import Image
-from utils.annotator import PascalVocXML
-from settings import common as config
-from utils.timing import timeit
+from od.utils.annotator import PascalVocXML
+from od.settings import common as config
+from od.utils.timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])
 

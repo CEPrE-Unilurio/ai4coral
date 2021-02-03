@@ -1,14 +1,14 @@
-from settings.common import DEBUG  
+from od.settings.common import DEBUG  
 
 if DEBUG:
-  from settings import development as config
+  from od.settings import development as config
 else:
-  from settings import production as config
+  from od.settings import production as config
 
-from core import detector_base
-from core import detect
-from utils.logger import logger
-from utils.timing import to_string
+from od.core import detector_base
+from od.core import detect
+from od.utils.logger import logger
+from od.utils.timing import to_string
 import bottle
 from bottle import route, run,  get, post, request, response
 import io

@@ -1,4 +1,4 @@
-from settings import common as config
+from od.settings import common as config
 from xml.etree import ElementTree as et
 from xml.dom import minidom
 
