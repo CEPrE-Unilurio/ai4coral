@@ -1,9 +1,9 @@
-from settings.common import DEBUG  
+from od.settings.common import DEBUG  
 
 if DEBUG:
-  from settings import development as config
+  from od.settings import development as config
 else:
-  from settings import production as config
+  from od.settings import production as config
 
 from od.core import detector_base
 from od.core import detect

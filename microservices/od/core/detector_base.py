@@ -14,13 +14,13 @@
 # limitations under the License.
 """Example using TF Lite to detect objects in a given image."""
 
-from settings.common import DEBUG  
+from od.settings.common import DEBUG  
 
 if DEBUG:
-  from settings import development as config
+  from od.settings import development as config
   import tensorflow.lite as tflite
 else:
-  from settings import production as config
+  from od.settings import production as config
   import tflite_runtime.interpreter as tflite
   
 import argparse
