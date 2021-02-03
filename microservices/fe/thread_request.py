@@ -7,7 +7,7 @@ from threading import Thread
 from queue import Queue
 from datetime import datetime
 from pathlib import Path
-from config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format
+from fe.config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format
 
 class Request_api (threading.Thread):
     """ 

@@ -9,8 +9,8 @@ from threading import Thread
 from queue import  Queue
 from datetime import datetime
 from pathlib import Path
-from config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format, num_thread
-from thread_request import Request_api as request_api
+from fe.config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format, num_thread
+from fe.thread_request import Request_api as request_api
 
 class VideoStream():
     """ 
