@@ -69,9 +69,3 @@ fi
 # # Install all packages
 # python3 -m pip install --upgrade pip
 # python3 -m pip install -r requirements.txt
-
-cp ~/.bashrc ~/.bashrc.back
-cp ~/.bashrc ~/.bashrc.back.back
-rm ~/.bashrc 
-python scripts/python_path.py
-source ~/.bashrc
