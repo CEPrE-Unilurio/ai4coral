@@ -3,6 +3,7 @@ import sys
 import requests
 import time
 import numpy as np
+import psutil
 import threading
 from threading import Thread
 from queue import  Queue
@@ -71,20 +72,20 @@ class VideoStream():
                 thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.isSave_Frame)
                 # self.thread_list.append(thread)
                 thread.join()
-
-                if self.show_frame:
-                    # time when we finish processing for this frame 
-                    self.atual_time = time.time() 
-                    fps = 1/(self.atual_time-self.prev_time) 
-                    self.prev_time = self.atual_time 
                 
-                    fps = "FPS : %0.1f" % fps
+                # time when we finish processing for this frame 
+                self.atual_time = time.time() 
+                fps = 1/(self.atual_time-self.prev_time) 
+                self.prev_time = self.atual_time                 
+                fps = "FPS : %0.1f" % fps
+                
+                if self.show_frame:
 
                     # puting the FPS count on the frame
                     cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3) 
                     cv.imshow('frame', self.frame)
-                
-                k = cv.waitKey(30) & 0xff
+                    
+                k = cv.waitKey(30) & 0xFF
                 if k == 27: # press 'ESC' to quit
                     self.exit()      
                     break  

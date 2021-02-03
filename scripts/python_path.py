@@ -12,6 +12,7 @@ with open(f'{home}/.bashrc', 'w+') as bashrc:
     for line in f:
       if line == export:
         print(f'nothing to be done')
+        bashrc.write(line)
         already_exported = True
       else:
         bashrc.write(line)  

@@ -18,8 +18,7 @@ class Request_api (threading.Thread):
             framename(str): a timestanp used to named the frame
             thread_id(int): the id of a given thread
             t_Lock(:obj: int): the semaphore to control the number of threa opened
-            isSave_Frame(bool) : defin if the frame should be saved in disk or not.
-        
+            isSave_Frame(bool) : defin if the frame should be saved in disk or not.       
         
         Attributes:
             frame(obj): a byte of image
@@ -64,11 +63,10 @@ class Request_api (threading.Thread):
                     print('Thread - {thread_id}  Saved Frame & Anotation at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
                            
             except :
-
+                self.response = requests.exceptions.RequestException
                 if self.isSave_Frame:
                     cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
-                    print('Thread - {thread_id} Only  Saved Frame and Anotation Not Found at {time} ' .format(thread_id =self.threadID, time= time.ctime()))
-                self.response = requests.exceptions.RequestException
+                    print('Thread - {thread_id} Only  Saved Frame and Anotation Not Found at {time} ' .format(thread_id =self.threadID, time= time.ctime()))               
             
             print('Exiting thread - {thread_id} at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
             
