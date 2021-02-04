@@ -23,6 +23,7 @@ def cpu_stats():
             
             print('Time - {time}  temperature = {temp} - cpu_usage = {cpu} '
              .format(time= time.asctime(), temp= temp, cpu=cpu_percent ))
+            
             print(*('CPU-{} = {}'.format(*k) for k in enumerate(cpu_percents)), sep="   || ")
             sleep(1)
 
