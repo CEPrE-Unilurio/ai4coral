@@ -24,8 +24,7 @@ def cpu_stats():
     try:
         while True:
 
-            # temp = get_temp()
-            temp = 124
+            temp = get_temp()
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_percents = psutil.cpu_percent(interval=1, percpu=True)
             now = time.time()
