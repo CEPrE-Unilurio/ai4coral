@@ -21,7 +21,7 @@ class VideoStream():
                 (int): the id of any camara atached or
                 (path): the path to a video file
             show_frame(bool): defin either the frame is shown or not.
-            isSave_Frame(bool) : defin if the frame should be saved in disk or not.
+            save_frame(bool) : defin if the frame should be saved in disk or not.
         
         
         Attributes:
@@ -31,10 +31,10 @@ class VideoStream():
             thread_list(list): the lista of all thread created
             thread_id(int): the id of a given thread
             show_frame(bool): defin either the frame is shown or not.
-            isSave_Frame(bool) : defin if the frame should be saved in disk or not.
+            save_frame(bool) : defin if the frame should be saved in disk or not.
         
         """
-    def __init__(self, src=0, show_frame = True, isSave_Frame =True):
+    def __init__(self, src=0, show_frame = True, save_frame =True):
         
         self.capture = cv.VideoCapture(src)
         self.capture.set(cv.CAP_PROP_FRAME_WIDTH,W) # set Width
@@ -44,11 +44,11 @@ class VideoStream():
         self.thread_list = []
         self.thread_id = 0
         self.show_frame = show_frame
-        self.isSave_Frame = isSave_Frame
+        self.save_frame = save_frame
         self.start_time = time.time()  
-        self.framegrab()
+        self.frame_grab()
               
-    def framegrab(self):
+    def frame_grab(self):
 
         # Time wich last frame processed 
         self.prev_time = 0        
@@ -69,7 +69,7 @@ class VideoStream():
                 timestamp = datetime.timestamp(now)
                 # Launch Thread for each frame
                 self.thread_id +=1
-                thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.isSave_Frame)
+                thread = request_api(self.frame, str(timestamp), self.thread_id, self.t_lock, self.save_frame)
                 # self.thread_list.append(thread)
                 thread.join()
                 

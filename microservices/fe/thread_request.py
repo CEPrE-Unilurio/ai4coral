@@ -18,26 +18,26 @@ class Request_api (threading.Thread):
             framename(str): a timestanp used to named the frame
             thread_id(int): the id of a given thread
             t_Lock(:obj: int): the semaphore to control the number of threa opened
-            isSave_Frame(bool) : defin if the frame should be saved in disk or not.       
+            save_frame(bool) : defin if the frame should be saved in disk or not.       
         
         Attributes:
             frame(obj): a byte of image
             framename(str): a timestanp used to named the frame
             t_Lock(:obj: int): the semaphore to control the number of threa opened
             thread_id(int): the id of a given thread
-            isSave_Frame(bool) : defin if the frame should be saved in disk or not.
+            save_frame(bool) : defin if the frame should be saved in disk or not.
         
         Return:
             None
     """
 
-    def __init__(self, frame, framename, threadID, t_Lock, isSave_Frame):
+    def __init__(self, frame, framename, threadID, t_Lock, save_frame):
         threading.Thread.__init__(self, daemon=False)    
         self.frame = frame
         self.framename = framename
         self.threadID = threadID
         self.t_Lock = t_Lock
-        self.isSave_Frame = isSave_Frame
+        self.save_frame = save_frame
         self.start()
       
     def run (self):
@@ -56,7 +56,7 @@ class Request_api (threading.Thread):
                 
                 print(self.response.status_code)            
 
-                if self.isSave_Frame:
+                if self.save_frame:
                     cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
                     with open(str(CORAL_DATA_DIR) +'/'+ self.framename + '.xml', 'wb') as f:
                         f.write(self.response.content)
@@ -64,7 +64,7 @@ class Request_api (threading.Thread):
                            
             except :
                 self.response = requests.exceptions.RequestException
-                if self.isSave_Frame:
+                if self.save_frame:
                     cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
                     print('Thread - {thread_id} Only  Saved Frame and Anotation Not Found at {time} ' .format(thread_id =self.threadID, time= time.ctime()))               
             
