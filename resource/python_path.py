@@ -4,18 +4,32 @@ import os
 BASE_DIR = os.getcwd()
 home = str(Path.home())
 MS_DIR = f'{BASE_DIR}/microservices'
-export = f'export PYTHONPATH={MS_DIR}:$PYTHONPATH'
-already_exported = False
+env = f'export PYTHONPATH={MS_DIR}:$PYTHONPATH\n'
 
-with open(f'{home}/.bashrc', 'w+') as bashrc:
-  with open(f'{home}/.bashrc.back') as f:
-    for line in f:
-      if line == export:
-        print(f'nothing to be done')
-        bashrc.write(line)
-        already_exported = True
-      else:
-        bashrc.write(line)  
-    if not already_exported:
-      print(f'adding {export}')
-      bashrc.write(export)
+def export():
+  already_exported = False
+
+  try:
+    os.system(f'cp {home}/.bashrc {home}/.bashrc.old')
+
+    with open(f'{home}/.bashrc.old', 'r') as f:
+      data = f.readlines()
+
+    with open(f'{home}/.bashrc', 'w+') as bashrc:
+      for line in data:
+        if line == env:
+          print(f'nothing to be done')
+          bashrc.write(line)
+          already_exported = True
+        else:
+          bashrc.write(line)  
+      if not already_exported:
+        print(f'adding {env}')
+        bashrc.write(env)
+  except Exception as e:
+    print('can not export')
+    print(e)
+    os.system(f'cp {home}/.bashrc.old {home}/.bashrc')
+
+if __name__ == '__main__':
+  export()

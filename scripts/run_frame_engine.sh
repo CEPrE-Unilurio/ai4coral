@@ -1,3 +1,3 @@
 source venv/bin/activate
 
-python microservices/frame_engine/cameraCV.py
+python microservices/fe/cameraCV.py
