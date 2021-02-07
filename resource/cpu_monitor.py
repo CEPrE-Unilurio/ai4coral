@@ -22,11 +22,11 @@ def cpu_stats():
     try:
         while True:
 
-            # temp = get_temperature()
+            temp = get_temperature()
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_percents = psutil.cpu_percent(interval=1, percpu=True)
 
-            cpu_var = f'{86},{cpu_percent},{cpu_percents[0]},{cpu_percents[1]},{cpu_percents[2]},{cpu_percents[3]}'
+            cpu_var = f'{temp},{cpu_percent},{cpu_percents[0]},{cpu_percents[1]},{cpu_percents[2]},{cpu_percents[3]}'
                         
             cpu_log.info(cpu_var)
             
