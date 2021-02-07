@@ -1,14 +1,12 @@
 import sys
 import psutil
-import time
 from pathlib import Path
 from re import findall 
 from time import sleep 
 from subprocess import check_output 
 from od.utils.logger import logger
 
-
-def get_temp():
+def get_temperature():
     """
         THIS FUCNTION ONLY RUN ON RASPBERRY TO GET THE ACTUAL TEMPERATURE OF THE DEVICE
     """
@@ -18,18 +16,17 @@ def get_temp():
 
 def cpu_stats():
 
-    HEADER = 'TIME,TEMPERATURE,CPU_USAGE,CPU_1,CPU_2,CPU_3,CPU_4'
+    HEADER = 'TEMPERATURE,CPU_USAGE,CPU_1,CPU_2,CPU_3,CPU_4'
     cpu_log.info(HEADER)
 
     try:
         while True:
 
-            temp = get_temp()
+            # temp = get_temperature()
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_percents = psutil.cpu_percent(interval=1, percpu=True)
-            now = time.time()
 
-            cpu_var = f'{now},{temp},{cpu_percent},{cpu_percents[0]},{cpu_percents[1]},{cpu_percents[2]},{cpu_percents[3]}'
+            cpu_var = f'{86},{cpu_percent},{cpu_percents[0]},{cpu_percents[1]},{cpu_percents[2]},{cpu_percents[3]}'
                         
             cpu_log.info(cpu_var)
             

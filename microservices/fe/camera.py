@@ -2,8 +2,8 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from config import data_test_directory
-from frame_stream import VideoStream
+from fe.settings import common as config
+from fe.frame_stream import VideoStream
     
 if __name__ == '__main__':
 
@@ -20,5 +20,5 @@ if __name__ == '__main__':
             
     """
     
-    VideoStream(src = str(data_test_directory) + '/test_video.mp4')
+    VideoStream(src = str(config.DATA_TEST_DIR) + '/test_video.mp4')
     

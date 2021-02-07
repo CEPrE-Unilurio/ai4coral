@@ -7,7 +7,7 @@ from threading import Thread
 from queue import Queue
 from datetime import datetime
 from pathlib import Path
-from fe.config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format
+from fe.settings import common as config
 
 class Request_api (threading.Thread):
     """ 
@@ -46,26 +46,26 @@ class Request_api (threading.Thread):
 
             print('Initialize thread -{thread_id} at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
             
-            self.imencoded = cv.imencode('.PNG', self.frame)[1].tobytes()
+            self.imencoded = cv.imencode(config.IMG_FORMAT, self.frame)[1].tobytes()
 
             self.session = requests.Session()
                     
             try:
                                        
-                self.response = self.session.post(url= urlapi +'/'+ self.framename, data=self.imencoded)
+                self.response = self.session.post(url= config.URL_API +'/'+ self.framename, data=self.imencoded)
                 
                 print(self.response.status_code)            
 
                 if self.save_frame:
-                    cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
-                    with open(str(CORAL_DATA_DIR) +'/'+ self.framename + '.xml', 'wb') as f:
+                    cv.imwrite(str(config.CORAL_DATA_DIR) +'/'+ self.framename + config.IMG_FORMAT, self.frame)
+                    with open(str(config.CORAL_DATA_DIR) +'/'+ self.framename + '.xml', 'wb') as f:
                         f.write(self.response.content)
                     print('Thread - {thread_id}  Saved Frame & Anotation at {time} ' .format(thread_id =self.threadID, time= time.asctime()))
                            
             except :
                 self.response = requests.exceptions.RequestException
                 if self.save_frame:
-                    cv.imwrite(str(CORAL_DATA_DIR) +'/'+ self.framename + img_format, self.frame)
+                    cv.imwrite(str(config.CORAL_DATA_DIR) +'/'+ self.framename + config.IMG_FORMAT, self.frame)
                     print('Thread - {thread_id} Only  Saved Frame and Anotation Not Found at {time} ' .format(thread_id =self.threadID, time= time.ctime()))               
             
             print('Exiting thread - {thread_id} at {time} ' .format(thread_id =self.threadID, time= time.asctime()))

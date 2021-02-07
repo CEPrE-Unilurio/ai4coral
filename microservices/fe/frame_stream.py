@@ -9,7 +9,7 @@ from threading import Thread
 from queue import  Queue
 from datetime import datetime
 from pathlib import Path
-from fe.config import W, H, FPS, urlapi, CORAL_DATA_DIR, img_format, num_thread
+from fe.settings import common as config
 from fe.thread_request import Request_api as request_api
 
 class VideoStream():
@@ -37,10 +37,10 @@ class VideoStream():
     def __init__(self, src=0, show_frame = True, save_frame =True):
         
         self.capture = cv.VideoCapture(src)
-        self.capture.set(cv.CAP_PROP_FRAME_WIDTH,W) # set Width
-        self.capture.set(cv.CAP_PROP_FRAME_HEIGHT,H) # set Height
+        self.capture.set(cv.CAP_PROP_FRAME_WIDTH,config.WIDTH) # set Width
+        self.capture.set(cv.CAP_PROP_FRAME_HEIGHT,config.HEIGHT) # set Height
         self.num_fps = 0
-        self.t_lock = threading.Semaphore(num_thread)
+        self.t_lock = threading.Semaphore(config.NUM_THREAD)
         self.thread_list = []
         self.thread_id = 0
         self.show_frame = show_frame
@@ -63,7 +63,7 @@ class VideoStream():
             
             if self.status == True:
                 self.num_fps +=1
-                self.frame = cv.resize(self.frame, (W, H), interpolation = cv.INTER_AREA)
+                self.frame = cv.resize(self.frame, (config.WIDTH, config.HEIGHT), interpolation = cv.INTER_AREA)
                                 
                 now = datetime.now()
                 timestamp = datetime.timestamp(now)
@@ -80,7 +80,6 @@ class VideoStream():
                 fps = "FPS : %0.1f" % fps
                 
                 if self.show_frame:
-
                     # puting the FPS count on the frame
                     cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3) 
                     cv.imshow('frame', self.frame)

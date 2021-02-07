@@ -1,6 +1,6 @@
-OD_DIR=$(pwd)/resource
+RS_DIR=$(pwd)/resource
 source venv/bin/activate
 
-cd $OD_DIR
+cd $RS_DIR
 
 python cpu_monitor.py
