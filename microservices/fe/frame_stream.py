@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from fe.settings import common as config
 from fe.thread_request import Request_api as request_api
+from od.utils.logger import logger
 
 class VideoStream():
     """ 
@@ -51,7 +52,11 @@ class VideoStream():
     def frame_grab(self):
 
         # Time wich last frame processed 
-        self.prev_time = 0        
+        self.prev_time = 0
+        HEADER = 'FPS'
+        LOG_DIR = Path(__file__).parent.parent / "../logs/fps_log.csv"
+
+        fps_log = logger(name='fps_log', filename=LOG_DIR, fmt='%(message)s')        
 
         while (self.capture.isOpened()):
             self.actual_time = 0
@@ -76,12 +81,13 @@ class VideoStream():
                 # time when we finish processing for this frame 
                 self.atual_time = time.time() 
                 fps = 1/(self.atual_time-self.prev_time) 
-                self.prev_time = self.atual_time                 
+                self.prev_time = self.atual_time
+                fps_log.info(f'{fps:.1f}')                 
                 fps = "FPS : %0.1f" % fps
                 
                 if self.show_frame:
                     # puting the FPS count on the frame
-                    cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3) 
+                    cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2) 
                     cv.imshow('frame', self.frame)
                     
                 k = cv.waitKey(30) & 0xFF
