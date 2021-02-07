@@ -56,7 +56,8 @@ class VideoStream():
         HEADER = 'FPS'
         LOG_DIR = Path(__file__).parent.parent / "../logs/fps_log.csv"
 
-        fps_log = logger(name='fps_log', filename=LOG_DIR, fmt='%(message)s')   
+        fps_log = logger(name='fps_log', filename=LOG_DIR, fmt='%(message)s')
+        fps_log.info(HEADER)   
 
         while (self.capture.isOpened()):
             self.actual_time = 0

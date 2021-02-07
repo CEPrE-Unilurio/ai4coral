@@ -8,10 +8,10 @@ LOG_DIR = Path(__file__).parent.parent / "../logs/"
 frame_size_log = logger(name='frame_size_log', filename=Path.joinpath(LOG_DIR,'frame_size_log.csv'), fmt='%(message)s')
 xml_size_log = logger(name='xml_size_log', filename=Path.joinpath(LOG_DIR,'xml_size_log.csv'), fmt='%(message)s')
 
-HEADER = 'SIZE FRAME'
+HEADER = 'SIZE_FRAME'
 frame_size_log.info(HEADER)
 
-HEADER = 'XML FRAME'
+HEADER = 'XML_FRAME'
 xml_size_log.info(HEADER)
 
 for f in os.listdir(CORAL_DATA_DIR):
