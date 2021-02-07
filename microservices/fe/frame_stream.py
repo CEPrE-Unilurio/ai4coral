@@ -35,7 +35,7 @@ class VideoStream():
             save_frame(bool) : defin if the frame should be saved in disk or not.
         
         """
-    def __init__(self, src=0, show_frame = True, save_frame =True):
+    def __init__(self, src=0, show_frame = True, save_frame = True):
         
         self.capture = cv.VideoCapture(src)
         self.capture.set(cv.CAP_PROP_FRAME_WIDTH,config.WIDTH) # set Width
@@ -56,12 +56,12 @@ class VideoStream():
         HEADER = 'FPS'
         LOG_DIR = Path(__file__).parent.parent / "../logs/fps_log.csv"
 
-        fps_log = logger(name='fps_log', filename=LOG_DIR, fmt='%(message)s')        
+        fps_log = logger(name='fps_log', filename=LOG_DIR, fmt='%(message)s')   
 
         while (self.capture.isOpened()):
             self.actual_time = 0
-            (self.status, self.frame) = self.capture.read()          
-
+            (self.status, self.frame) = self.capture.read()
+                    
             if self.num_fps == self.capture.get(cv.CAP_PROP_FRAME_COUNT):
                 self.num_fps=0
                 self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
@@ -82,6 +82,7 @@ class VideoStream():
                 self.atual_time = time.time() 
                 fps = 1/(self.atual_time-self.prev_time) 
                 self.prev_time = self.atual_time
+                
                 fps_log.info(f'{fps:.1f}')                 
                 fps = "FPS : %0.1f" % fps
                 
