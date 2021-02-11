@@ -1,3 +1,6 @@
-source venv/bin/activate
+FE_DIR=$(pwd)/microservices/fe
 
-python microservices/fe/cameraCV.py
+source venv/bin/activate
+cd $FE_DIR
+
+python camera.py
