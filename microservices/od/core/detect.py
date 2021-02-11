@@ -169,8 +169,16 @@ def output_tensor(interpreter, i):
   return np.squeeze(tensor)
 
 @timeit
-def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
-  """Returns a Pascal VOC xml containing the detections."""
+def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), as_pasca_voc=True,**kwargs):
+  """
+    Args:
+    interpreter: Interpreter object.
+    score_threshold: a real number with domain in (0, 1)
+  Returns:
+    a Pascal VOC xml containing the detections if as_pascal_voc is True,
+    othewise return a list of detected objects
+  """
+  
   boxes = output_tensor(interpreter, 0)
   class_ids = output_tensor(interpreter, 1)
   scores = output_tensor(interpreter, 2)
@@ -192,13 +200,18 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0), **kwargs):
 
   if config.LABELS is None:
     config.LABELS = load_labels(config.PATH_TO_LABELS)
-    
-  pvx = PascalVocXML(filename=kwargs['filename'])
-    
+
+  if as_pasca_voc:  
+    pvx = PascalVocXML(filename=kwargs['filename'])
+  else:
+    objs = []
+
   for i in range(count):
     if scores[i] >= score_threshold:
       obj = make(i)
       label = config.LABELS.get(obj.id, obj.id)
-      pvx.add_object_element(obj, label)
-
-  return pvx.get_annotations()
+      if as_pasca_voc:
+        pvx.add_object_element(obj, label)
+      else:
+        objs.append(obj)
+  return pvx.get_annotations() if as_pasca_voc else objs

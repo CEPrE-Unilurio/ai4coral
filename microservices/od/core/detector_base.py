@@ -139,13 +139,12 @@ def main():
                       help='Number of times to run inference')
   args = parser.parse_args()
 
-  labels = load_labels(args.labels) if args.labels else {}
+  labels = detect.load_labels(args.labels) if args.labels else {}
   interpreter = make_interpreter(args.model)
   interpreter.allocate_tensors()
 
   image = Image.open(args.input)
-  scale = detect.set_input(interpreter, image.size,
-                           lambda size: image.resize(size, Image.ANTIALIAS))
+  scale = detect.set_input(interpreter, image.size, image)
 
   print('----INFERENCE TIME----')
   print('Note: The first inference is slow because it includes',
@@ -154,7 +153,7 @@ def main():
     start = time.perf_counter()
     interpreter.invoke()
     inference_time = time.perf_counter() - start
-    objs = detect.get_output(interpreter, args.threshold, scale)
+    objs = detect.get_output(interpreter, args.threshold, scale, as_pasca_voc=False)
     print('%.2f ms' % (inference_time * 1000))
 
   print('-------RESULTS--------')
