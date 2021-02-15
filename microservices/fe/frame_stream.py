@@ -69,7 +69,7 @@ class VideoStream():
             
             if self.status == True:
                 self.num_fps +=1
-                self.frame = cv.resize(self.frame, (config.WIDTH, config.HEIGHT), interpolation = cv.INTER_AREA)
+#                 self.frame = cv.resize(self.frame, (config.WIDTH, config.HEIGHT), interpolation = cv.INTER_AREA)
                                 
                 now = datetime.now()
                 timestamp = datetime.timestamp(now)
