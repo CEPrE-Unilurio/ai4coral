@@ -40,6 +40,7 @@ class VideoStream():
         self.capture = cv.VideoCapture(src)
         self.capture.set(cv.CAP_PROP_FRAME_WIDTH,config.WIDTH) # set Width
         self.capture.set(cv.CAP_PROP_FRAME_HEIGHT,config.HEIGHT) # set Height
+        self.capture.set(cv.CAP_PROP_FPS, config.FPS)
         self.num_fps = 0
         self.t_lock = threading.Semaphore(config.NUM_THREAD)
         self.thread_list = []
@@ -69,7 +70,7 @@ class VideoStream():
             
             if self.status == True:
                 self.num_fps +=1
-                self.frame = cv.resize(self.frame, (config.WIDTH, config.HEIGHT), interpolation = cv.INTER_AREA)
+                # self.frame = cv.resize(self.frame, (config.WIDTH, config.HEIGHT), interpolation = cv.INTER_AREA)
                                 
                 now = datetime.now()
                 timestamp = datetime.timestamp(now)
@@ -91,8 +92,8 @@ class VideoStream():
                     # puting the FPS count on the frame
                     cv.putText(self.frame, fps, (0, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2) 
                     cv.imshow('frame', self.frame)
-                    
-                k = cv.waitKey(30) & 0xFF
+    
+                k = cv.waitKey(config.DELAY_TIME) & 0xFF
                 if k == 27: # press 'ESC' to quit
                     self.exit()      
                     break  
