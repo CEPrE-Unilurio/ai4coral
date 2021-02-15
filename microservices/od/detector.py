@@ -34,7 +34,6 @@ def do_detections(filename):
     interpreter = detector_base.make_interpreter(config.PATH_TO_MODEL, log_time=logtime_data)
     scale = detect.set_input(interpreter, image.size, image, log_time=logtime_data)
     
-
     detector_base.invoke_interpreter(interpreter, log_time=logtime_data)
     annotations = detect.get_output(interpreter, 
                                     config.THRESHOLD, 

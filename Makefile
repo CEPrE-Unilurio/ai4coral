@@ -1,4 +1,15 @@
+#!/bin/bash
+#
+# Copyright 2021  CEPrE-Unilurio 
+
+#default values 
+
 OD_DIR=microservices/od
+
+#remenber to change this
+#it needs improvement
+
+deploy=false
 
 setup:
 	@bash scripts/setup.sh $(deploy)

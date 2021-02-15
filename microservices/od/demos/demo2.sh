@@ -5,7 +5,7 @@ LABELS=models/coco_labels.txt
 python3 core/detector_base.py \
 --model $MODEL \
 --labels $LABELS \
---input tests/images/image1.jpg \
---output tests/images/image1_processed.jpg \
+--input tests/images/truck.png \
+--output tests/images/truck_processed.png \
 --threshold 0.5 \
 --count 1

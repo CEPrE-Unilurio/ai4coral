@@ -119,7 +119,7 @@ def draw_objects(draw, objs, labels):
                    outline='red')
     draw.text((bbox.xmin + 10, bbox.ymin + 10),
               '%s\n%.2f' % (labels.get(obj.id, obj.id), obj.score),
-              fill='red')
+              fill='white')
 
 
 def main():

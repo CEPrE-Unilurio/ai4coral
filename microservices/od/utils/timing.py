@@ -1,6 +1,7 @@
 import time
 
 def timeit(method):
+  """ measure time executions of methods """
   def timed(*args, **kw):
     start = time.perf_counter()
     result = method(*args, **kw)

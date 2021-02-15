@@ -9,22 +9,21 @@ The ai4coral is based on client-server arquitecture
 
 # How to Run the project
 
-# 0 - export ai4coral packages to PYTHONPATH, etc
-    $ source configure.sh
-
 # 1 - Install python create virtaulenv and install packages: 
-
     $ make deploy=[true|false] setup
     true - when setting up production environment
     false - when setting up development environment 
 
-# 2 - Start Server
+# 2 - export ai4coral packages to PYTHONPATH, etc
+    $ source configure.sh
+
+# 3 - Start Server
     $ make run_api 
 
-# 3 - Start Frame_Engine
+# 4 - Start Frame_Engine
     $ make run_frame_engine
     
-# 4 - Project Structure
+# 5 - Project Structure
 ``` bash
 ai4coral/
 ├── coral_data
@@ -34,6 +33,7 @@ ai4coral/
 │   ├── fe
 │   └── od
 │       ├── core
+│       ├── demos
 │       ├── docs
 │       ├── models
 │       ├── settings

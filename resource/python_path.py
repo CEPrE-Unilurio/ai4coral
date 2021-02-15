@@ -8,13 +8,10 @@ env = f'export PYTHONPATH={MS_DIR}:$PYTHONPATH\n'
 
 def export():
   already_exported = False
-
   try:
     os.system(f'cp {home}/.bashrc {home}/.bashrc.old')
-
     with open(f'{home}/.bashrc.old', 'r') as f:
       data = f.readlines()
-
     with open(f'{home}/.bashrc', 'w+') as bashrc:
       for line in data:
         if line == env:

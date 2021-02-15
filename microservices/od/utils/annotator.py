@@ -7,16 +7,16 @@ class PascalVocXML:
     
     Attributes
     ----------
-    annotatio : ElementTree
+    annotation : ElementTree Object
       The root element of the created XML document  
   """
 
-  def __init__(self, objs=None, filename=None):
+  def __init__(self, filename=None):
     """
       Init the XML document with basic info
     
       Args:
-        objs: list of detected objects
+        filename: name of the XML file
     """
     self.annotation = et.Element('annotation')
     folder = et.SubElement(self.annotation, 'folder')
@@ -34,6 +34,12 @@ class PascalVocXML:
     depth.text = str(config.INPUT_SHAPE[2])
     
   def add_object_element(self, obj=None, label=None):  
+    """  Add detected object to the XML file
+
+        Args:
+          obj: the detected object
+          label: the name of the detected object
+    """
     bbox = obj.bbox
     object = et.SubElement(self.annotation, 'object')
     name = et.SubElement(object, "name")
