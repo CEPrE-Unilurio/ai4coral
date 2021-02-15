@@ -2,9 +2,13 @@ import os
 from pathlib import Path
 
 ################# IMPUT SHAPE #############################
-WIDTH = 300
-HEIGHT = 300
-FPS = 24.0
+#DELAY_TIME is used to control de fps
+#Example if DELAY_TIME = 200 then fps = 1000/200
+DELAY_TIME = 200 
+HIGH_VALUE = 100000
+WIDTH = HIGH_VALUE
+HEIGHT = HIGH_VALUE
+FPS = 4.0
 IMG_FORMAT = '.png'
 
 ####################### OTHER VARIABLE ####################
