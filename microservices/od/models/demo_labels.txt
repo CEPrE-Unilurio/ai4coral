@@ -1,0 +1,7 @@
+0  fish
+1  jellyfish
+2  penguin
+3  puffin
+5  shark
+6  starfish
+7  stingray

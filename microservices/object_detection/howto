@@ -1,3 +1,0 @@
-howto do post using curl
-ex:
-curl  -X POST --data-binary @image2.jpg localhost:8080/detect
