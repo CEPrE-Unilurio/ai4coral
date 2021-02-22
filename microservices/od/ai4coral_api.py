@@ -58,7 +58,7 @@ def ai4coral_app():
   return bottle.default_app()
 
 def number_of_workers():
-  return (multiprocessing.cpu_count() * 2) + 1
+  return 1
 
 class AI4CoralStandaloneApplication(gunicorn.app.base.BaseApplication):
 
