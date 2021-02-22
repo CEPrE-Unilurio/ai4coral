@@ -76,12 +76,13 @@ class AI4CoralStandaloneApplication(gunicorn.app.base.BaseApplication):
   def load(self):
     return self.application
 
-if __name__ == '__main__':
-  host = '0.0.0.0'
-  port = '8080'
-  options = {
-    'name': 'AI4Coral API',
-    'bind': f'{host}:{port}',
-    'workers': number_of_workers(),
-  }
-  AI4CoralStandaloneApplication(ai4coral_app(), options).run()
+host = '0.0.0.0'
+port = '8080'
+options = {
+  'name': 'AI4Coral API',
+  'bind': f'{host}:{port}',
+  'workers': number_of_workers(),
+}
+
+def run():
+  AI4CoralStandaloneApplication(ai4coral_app(), options).run() 

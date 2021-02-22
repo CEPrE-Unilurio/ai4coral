@@ -1,6 +1,7 @@
 import os
 from os.path import abspath, basename, dirname, join
 from od.settings.common import OD_DIR
+#from pathlib import Path
 
 ################# IMPUT SHAPE #############################
 #DELAY_TIME is used to control de fps
@@ -23,10 +24,12 @@ FE_DIR = dirname(dirname(abspath(__file__)))
 
 AI4CORAL_DIR = dirname(dirname(OD_DIR))
 
+#CORAL_DATA_DIR = Path(__file__).parent.parent.parent / "../coral_data/"
 CORAL_DATA_DIR = join(AI4CORAL_DIR, 'coral_data')
 
 if not os.path.exists(CORAL_DATA_DIR):
     os.makedirs(CORAL_DATA_DIR)
 
 ################### PATH FOR TEST DATA #####################
+#DATA_TEST_DIR = Path(__file__).parent.parent / "../od/tests/images/"
 DATA_TEST_DIR = join(OD_DIR, 'tests/images')

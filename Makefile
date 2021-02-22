@@ -5,7 +5,7 @@
 #default values 
 
 OD_DIR=microservices/od
-
+MS_DIR=microservices
 #remenber to change this
 #it needs improvement
 
@@ -14,13 +14,13 @@ deploy=false
 setup:
 	@bash scripts/setup.sh $(deploy)
 run_api:
-	python $(OD_DIR)/ai4coral_api.py
+	python $(MS_DIR)/service_ctl.py run --service ai4coral_api
 run_frame_engine:
-	@bash scripts/run_frame_engine.sh
+	python $(MS_DIR)/service_ctl.py run --service frame_engine
 unit_test_api:
 	python $(OD_DIR)/tests/unit_tests.py
 stress_api: 
-	@bash scripts/stress_api.sh
+	python $(OD_DIR)/tests/stress_api.py
 cpu_monitor:
 	@bash scripts/cpu_monitor.sh
 	
