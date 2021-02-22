@@ -9,6 +9,7 @@ else:
 ###### BASE PATH CONFIGURATION ################################
 
 OD_DIR = dirname(dirname(abspath(__file__)))
+
 AI4CORAL_DIR = dirname(dirname(OD_DIR))
 API_NAME = basename(AI4CORAL_DIR)
 LOG_DIR = join(AI4CORAL_DIR, 'logs')
@@ -21,8 +22,6 @@ TIMING_LOG = {'filename': join(LOG_DIR, 'api_timing.csv'), 'name': 'api_timing_l
 INPUT_SHAPE = (640, 640, 3)
 FOLDER_NAME = "ai4coral"
 SOURCE_NAME = 'ai4coral'
-PATH_TO_LABELS = join(OD_DIR, 'models/coco_labels.txt')
 THRESHOLD = 0.4
 
-LABELS = None
-  
+LABELS = None  

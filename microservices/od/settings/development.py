@@ -1,5 +1,7 @@
 from .common import *
+from os.path import join 
 
 # ##### DEBUG CONFIGURATION ###############################
 
-PATH_TO_MODEL = 'models/ssd_mobilenet_v2_coco_quant_postprocess.tflite'
+PATH_TO_MODEL = join(OD_DIR, 'models/ssd_mobilenet_v2_coco_quant_postprocess.tflite')
+PATH_TO_LABELS = join(OD_DIR, 'models/coco_labels.txt')

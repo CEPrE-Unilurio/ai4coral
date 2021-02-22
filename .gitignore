@@ -133,3 +133,6 @@ dmypy.json
 
 *.png
 *.xml
+
+# only jupyter notebooks can be pushed
+*.csv

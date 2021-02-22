@@ -6,7 +6,7 @@ protocols: [HTTP]
 
 /detect/{filename}:
   description: "Object detection Service"
-  get:
+  post:
     description: "Get detections for the image frame sent by the client"
     body:
       binary/octet-stream:
@@ -14,5 +14,14 @@ protocols: [HTTP]
     responses:
       200:
         body:
-          application/json:
-            description: "A json response containing the model's detections"
+          application/xml:
+            description: "A xml response containing the model's detections"
+/hello:
+  get:
+    description: "Used to check the healthy of the API"
+    responses: 
+      200:
+        body: 
+          application/text:
+            description: "A text response, hello as a response indicates an healthy API"
+            example: "hello"

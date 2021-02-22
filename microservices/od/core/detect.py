@@ -18,7 +18,14 @@ import collections
 import numpy as np
 from PIL import Image
 from od.utils.annotator import PascalVocXML
-from od.settings import common as config
+
+from od.settings.common import DEBUG  
+
+if DEBUG:
+  from od.settings import development as config
+else:
+  from od.settings import production as config
+  
 from od.utils.timing import timeit
 
 Object = collections.namedtuple('Object', ['id', 'score', 'bbox'])

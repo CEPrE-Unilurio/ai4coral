@@ -1,3 +1,10 @@
+
+# Copyright 2021  CEPrE-Unilurio 
+
+import multiprocessing
+
+import gunicorn.app.base
+
 from od.settings.common import DEBUG  
 
 if DEBUG:
@@ -21,9 +28,9 @@ timing_log = logger(name=config.TIMING_LOG['name'],
                     filename=config.TIMING_LOG['filename'], 
                     fmt='%(message)s')
 
-@route('/')
-def greetings():
-  return "Hi, I am the AI4Coral RESTful API\n"
+@route('/hello')
+def hello():
+  return "hello"
 
 @post('/detect/<filename>')
 def do_detections(filename):
@@ -46,8 +53,35 @@ def do_detections(filename):
     response.status = 400
     detector_base.error_log.exception("detection failed")
     return "detection failed"
-        
-if __name__ == '__main__':
-     run(host='localhost', port=8080)
 
-app = bottle.default_app()
+def ai4coral_app():
+  return bottle.default_app()
+
+def number_of_workers():
+  return (multiprocessing.cpu_count() * 2) + 1
+
+class AI4CoralStandaloneApplication(gunicorn.app.base.BaseApplication):
+
+  def __init__(self, app, options=None):
+      self.options = options or {}
+      self.application = app
+      super().__init__()
+
+  def load_config(self):
+    config = {key: value for key, value in self.options.items()
+                if key in self.cfg.settings and value is not None}
+    for key, value in config.items():
+      self.cfg.set(key.lower(), value)
+
+  def load(self):
+    return self.application
+
+if __name__ == '__main__':
+  host = '0.0.0.0'
+  port = '8080'
+  options = {
+    'name': 'AI4Coral API',
+    'bind': f'{host}:{port}',
+    'workers': number_of_workers(),
+  }
+  AI4CoralStandaloneApplication(ai4coral_app(), options).run()

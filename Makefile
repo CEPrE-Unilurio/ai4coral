@@ -14,11 +14,11 @@ deploy=false
 setup:
 	@bash scripts/setup.sh $(deploy)
 run_api:
-	@bash scripts/run_api.sh
+	python $(OD_DIR)/ai4coral_api.py
 run_frame_engine:
 	@bash scripts/run_frame_engine.sh
 unit_test_api:
-	$(shell cd $(OD_DIR); python tests/unit_tests.py)
+	python $(OD_DIR)/tests/unit_tests.py
 stress_api: 
 	@bash scripts/stress_api.sh
 cpu_monitor:
