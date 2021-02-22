@@ -130,9 +130,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-~ai4coral_overview.png
 *.png
 *.xml
 
 # only jupyter notebooks can be pushed
 *.csv
+
+~ai4coral_overview.png
