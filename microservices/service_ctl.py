@@ -13,7 +13,9 @@ r""" Control the services that coordinate to do object detections
 from od import ai4coral_api
 from fe.frame_stream import VideoStream
 from fe.settings import common as fe_config
+from od.settings import common as od_config
 
+import os
 from absl import app
 from absl import flags
 
@@ -28,16 +30,16 @@ def main(argv):
   command = argv[1]
 
   if command not in commands:
-    raise ValueError(f'Only the following the following are available {commands}')
+    raise ValueError(f'Only the following commands are available {commands}')
   
   if FLAGS.service not in services or FLAGS.service is None:
-    raise ValueError(f'Only the following services are available {commands}')
+    raise ValueError(f'Only the following services are available {services}')
   
   if command == 'run':
     if FLAGS.service == 'ai4coral_api':
+      print(f'OD_DIR {od_config.OD_DIR}, PID {os.getpid()}')
       ai4coral_api.run()
     elif FLAGS.service == 'frame_engine':
-      print(fe_config.DATA_TEST_DIR)
       VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4')
     
 

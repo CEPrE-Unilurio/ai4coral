@@ -1,28 +1,31 @@
 from pathlib import Path
+from od.settings import common as od_config
 import os
 
-BASE_DIR = os.getcwd()
+BASE_DIR = od_config.AI4CORAL_DIR
 home = str(Path.home())
 MS_DIR = f'{BASE_DIR}/microservices'
-env = f'export PYTHONPATH={MS_DIR}:$PYTHONPATH\n'
+envs = {}
+
+envs['PYTHONPATH'] = f'export PYTHONPATH={MS_DIR}:$PYTHONPATH\n'
+envs['AI4CORAL_BASE'] = f'export AI4CORAL_BASE={od_config.AI4CORAL_DIR}\n' 
 
 def export():
-  already_exported = False
   try:
     os.system(f'cp {home}/.bashrc {home}/.bashrc.old')
     with open(f'{home}/.bashrc.old', 'r') as f:
       data = f.readlines()
     with open(f'{home}/.bashrc', 'w+') as bashrc:
       for line in data:
-        if line == env:
-          print(f'nothing to be done')
-          bashrc.write(line)
-          already_exported = True
+        for env in envs.keys():
+          if line.__contains__(env):
+            bashrc.write(envs[env])
+            del envs[env]
+            break
         else:
-          bashrc.write(line)  
-      if not already_exported:
-        print(f'adding {env}')
-        bashrc.write(env)
+          bashrc.write(line)
+      for env in envs.keys():
+        bashrc.write(envs[env])
   except Exception as e:
     print('can not export')
     print(e)
