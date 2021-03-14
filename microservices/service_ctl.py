@@ -37,11 +37,15 @@ def main(argv):
   
   if command == 'run':
     if FLAGS.service == 'ai4coral_api':
-      print(f'OD_DIR {od_config.OD_DIR}, PID {os.getpid()}')
+      with open(f'{od_config.OD_DIR}/pidfile','w') as od_pidfile:
+        od_pidfile.write(str(os.getpid()))
       ai4coral_api.run()
     elif FLAGS.service == 'frame_engine':
       VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4')
-    
 
+  if command == 'stop':
+    if FLAGS.service == 'ai4coral_api':
+      os.system(f'kill -9  $(cat {od_config.OD_DIR}/pidfile)')
+      os.system(f'fuser 8080/tcp') # to ensure that gunicorn does not keep running on background
 if __name__ == '__main__':
   app.run(main)

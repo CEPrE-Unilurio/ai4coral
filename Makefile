@@ -15,6 +15,8 @@ setup:
 	@bash scripts/setup.sh $(deploy)
 run_api:
 	python $(MS_DIR)/service_ctl.py run --service ai4coral_api
+stop_api:
+	python $(MS_DIR)/service_ctl.py stop --service ai4coral_api
 run_frame_engine:
 	python $(MS_DIR)/service_ctl.py run --service frame_engine
 unit_test_api:
