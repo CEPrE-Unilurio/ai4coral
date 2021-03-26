@@ -13,12 +13,22 @@ deploy=false
 
 setup:
 	@bash scripts/setup.sh $(deploy)
-run_api:
-	python $(MS_DIR)/service_ctl.py run --service ai4coral_api
+start_api:
+	python $(MS_DIR)/service_ctl.py start --service ai4coral_api
 stop_api:
 	python $(MS_DIR)/service_ctl.py stop --service ai4coral_api
-run_frame_engine:
-	python $(MS_DIR)/service_ctl.py run --service frame_engine
+restart_api:
+	python $(MS_DIR)/service_ctl.py stop --service ai4coral_api
+	python $(MS_DIR)/service_ctl.py start --service ai4coral_api
+
+start_frame_engine:
+	python $(MS_DIR)/service_ctl.py start --service frame_engine
+stop_frame_engine:
+	python $(MS_DIR)/service_ctl.py stop --service frame_engine
+restart_frame_engine:
+	python $(MS_DIR)/service_ctl.py stop --service frame_engine
+	python $(MS_DIR)/service_ctl.py start --service frame_engine
+
 unit_test_api:
 	python $(OD_DIR)/tests/unit_tests.py
 stress_api: 
