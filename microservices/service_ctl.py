@@ -20,7 +20,6 @@ from od import ai4coral_api
 from fe.frame_stream import VideoStream
 from fe.settings import common as fe_config
 from od.settings import common as od_config
-
 import os, signal
 from absl import app
 from absl import flags
@@ -28,17 +27,13 @@ from absl import flags
 services = ['ai4coral_api', 'frame_engine']
 commands = ['start', 'stop', 'restart']
 PID = str(os.getpid())
-    
 flags.DEFINE_string('service', None, 'The name of the service to run | stop | restart')
-
 FLAGS = flags.FLAGS
 
 def main(argv):
   command = argv[1]
-
   if command not in commands:
     raise ValueError(f'Only the following commands are available {commands}')
-  
   if FLAGS.service not in services or FLAGS.service is None:
     raise ValueError(f'Only the following services are available {services}')
   
