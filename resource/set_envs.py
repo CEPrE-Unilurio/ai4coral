@@ -15,14 +15,16 @@ def export():
     os.system(f'cp {home}/.bashrc {home}/.bashrc.old')
     with open(f'{home}/.bashrc.old', 'r') as f:
       data = f.readlines()
-    with open(f'{home}/.bashrc', 'w+') as bashrc:
+    with open(f'{home}/.bashrc', 'w') as bashrc:
       for line in data:
+        env_exists = False
         for env in envs.keys():
           if line.__contains__(env):
             bashrc.write(envs[env])
             del envs[env]
+            env_exists = True
             break
-        else:
+        if not env_exists:
           bashrc.write(line)
       for env in envs.keys():
         bashrc.write(envs[env])
