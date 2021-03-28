@@ -1,6 +1,8 @@
 
 # Copyright 2021  CEPrE-Unilurio 
 
+#!/usr/bin/env python
+
 import multiprocessing
 
 import gunicorn.app.base
@@ -86,3 +88,6 @@ options = {
 
 def run():
   AI4CoralStandaloneApplication(ai4coral_app(), options).run() 
+
+if __name__ == 'main':
+  run() 

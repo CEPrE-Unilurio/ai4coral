@@ -23,11 +23,14 @@ from od.settings import common as od_config
 import os, signal
 from absl import app
 from absl import flags
+from od.utils.logger import logger
+
+error_log = logger(name=od_config.ERROR_LOG['name'], filename=od_config.ERROR_LOG['filename'])
 
 services = ['ai4coral_api', 'frame_engine']
 commands = ['start', 'stop', 'restart']
 PID = str(os.getpid())
-flags.DEFINE_string('service', None, 'The name of the service to run | stop | restart')
+flags.DEFINE_string('service', None, 'The name of the service to start | stop | restart')
 FLAGS = flags.FLAGS
 
 def main(argv):
@@ -39,38 +42,33 @@ def main(argv):
   
   def start():
     if FLAGS.service == 'ai4coral_api':
-      with open(f'{od_config.OD_DIR}/pidfile','w') as od_pidfile:
-        od_pidfile.write(PID)
-      with open(f'{od_config.OD_DIR}/pidfile','r') as od_pidfile:
-        if od_pidfile.readlines()[0].strip() == PID:
-          print(f'starting {FLAGS.service} with PID {PID}')
-          ai4coral_api.run()
+      os.system('fuser -k 8080/tcp')
+      ai4coral_api.run()
     elif FLAGS.service == 'frame_engine':
-      with open(f'{fe_config.FE_DIR}/pidfile','w') as fe_pidfile:
+      with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','w') as fe_pidfile:
         fe_pidfile.write(PID)
-      with open(f'{fe_config.FE_DIR}/pidfile','r') as fe_pidfile:
+      with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
         if fe_pidfile.readlines()[0].strip() == PID:
-          print(f'starting {FLAGS.service} with PID {PID}')
-          VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4')
+          VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4',
+                        show_frame=False)
 
   def stop():
     if FLAGS.service == 'ai4coral_api':
-      print(f'stoping {FLAGS.service}')
-      with open(f'{od_config.OD_DIR}/pidfile','r') as od_pidfile:
-        PID = int(od_pidfile.readlines()[0].strip())  
-        os.kill(PID, signal.SIGKILL)
-        print(f'{FLAGS.service} stoped')
+      os.system('fuser -k 8080/tcp')  
     elif FLAGS.service == 'frame_engine':
-      print(f'stoping {FLAGS.service}')
-      with open(f'{fe_config.FE_DIR}/pidfile','r') as fe_pidfile:
+      with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
         PID = int(fe_pidfile.readlines()[0].strip())  
         os.kill(PID, signal.SIGKILL)
-        print(f'{FLAGS.service} stoped')
-    
+      os.system(f'rm {fe_config.FE_DIR}/{FLAGS.service}.pid')
   if command == 'start':
-    start()
+    try:
+      start()
+    except Exception as e:
+      error_log.exception("error starting service")
   elif command == 'stop':
-    stop()
-    
+    try:
+      stop()
+    except Exception as e:
+      error_log.exception("error stoping service")
 if __name__ == '__main__':
   app.run(main)
