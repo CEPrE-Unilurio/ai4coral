@@ -67,8 +67,8 @@ def main(argv):
 
   def stop():
     if FLAGS.service == 'ai4coral_api':
-      log('STOPING', FLAGS.service)
       time.sleep(10) ## this delay is to make sure that we stop frame_engine before killing  the api
+      log('STOPING', FLAGS.service)
       os.system('fuser -k 8080/tcp')  
     elif FLAGS.service == 'frame_engine':
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
