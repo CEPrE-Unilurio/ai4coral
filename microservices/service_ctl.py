@@ -23,7 +23,7 @@ from od import ai4coral_api
 from fe.frame_stream import VideoStream
 from fe.settings import common as fe_config
 from od.settings import common as od_config
-import os, signal
+import os, signal, time
 from absl import app
 from absl import flags
 from od.utils.logger import logger
@@ -60,6 +60,7 @@ def main(argv):
         fe_pidfile.write(PID)
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
         if fe_pidfile.readlines()[0].strip() == PID:
+          time.sleep(10) ## this delay is to make sure that we launch frame_engine after the api is alive
           log('STARTING', FLAGS.service)
           VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4',
                         show_frame=False)
@@ -67,6 +68,7 @@ def main(argv):
   def stop():
     if FLAGS.service == 'ai4coral_api':
       log('STOPING', FLAGS.service)
+      time.sleep(10) ## this delay is to make sure that we stop frame_engine before killing  the api
       os.system('fuser -k 8080/tcp')  
     elif FLAGS.service == 'frame_engine':
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:

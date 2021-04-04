@@ -14,7 +14,7 @@ def logger(name=None, fmt=None, filename=None):
         A logger object
   """
   fmt = '%(asctime)s | %(levelname)s | %(message)s' if fmt is None else fmt
-  formatter = logging.Formatter(fmt=fmt)
+  formatter = logging.Formatter(fmt=fmt, datefmt='%Y-%m-%d %H:%M:%S')
   file_handler = logging.FileHandler(filename=filename)
   file_handler.setLevel(logging.DEBUG)
   file_handler.setFormatter(formatter)

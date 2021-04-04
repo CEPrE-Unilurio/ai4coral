@@ -17,22 +17,30 @@ for job in cron:
       cron.remove(job)
       cron.write()
 
-start_api = cron.new(command=f'{python} {MS_DIR}/service_ctl.py start --service ai4coral_api ', comment='start_api')
+start_api = cron.new(command=f'{python} {MS_DIR}/service_ctl.py start --service ai4coral_api ', 
+                      comment='start_api')
+
 start_api.minute.on(start_min_on)
 start_api.hour.on(start_hour_on)
 print(start_api.is_valid())
 
-stop_api = cron.new(command=f'{python} {MS_DIR}/service_ctl.py stop --service ai4coral_api', comment='stop_api')
+stop_api = cron.new(command=f'{python} {MS_DIR}/service_ctl.py stop --service ai4coral_api', 
+                      comment='stop_api')
+
 stop_api.minute.on(stop_min_on)
 stop_api.hour.on(stop_hour_on)
 print(stop_api.is_valid())
 
-start_fe = cron.new(command=f'{python} {MS_DIR}/service_ctl.py start --service frame_engine ', comment='start_frame_engine')
+start_fe = cron.new(command=f'{python} {MS_DIR}/service_ctl.py start --service frame_engine ', 
+                      comment='start_frame_engine')
+
 start_fe.minute.on(start_min_on)
 start_fe.hour.on(start_hour_on)
 print(start_fe.is_valid())
 
-stop_fe = cron.new(command=f'{python} {MS_DIR}/service_ctl.py stop --service frame_engine', comment='stop_frame_engine')
+stop_fe = cron.new(command=f'{python} {MS_DIR}/service_ctl.py stop --service frame_engine', 
+                    comment='stop_frame_engine')
+
 stop_fe.minute.on(stop_min_on)
 stop_fe.hour.on(stop_hour_on)
 print(stop_fe.is_valid())
