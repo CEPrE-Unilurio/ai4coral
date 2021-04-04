@@ -1,3 +1,7 @@
+# Copyright 2021  CEPrE-Unilurio 
+
+r""" Used to control CronTab to setup the time to launch and stop sertvices
+"""
 import os
 from crontab import CronTab
 from od.settings import common as od_config
@@ -7,10 +11,10 @@ jobs = ['start_api', 'stop_api', 'start_frame_engine', 'stop_frame_engine']
 MS_DIR = f'{od_config.AI4CORAL_DIR}/microservices'
 cron = CronTab(user=True)
 
-start_hour_on = 5
-start_min_on =  0
-stop_hour_on = 17
-stop_min_on = 0
+start_hour_on = od_config.START_TIME[0]
+start_min_on = od_config.START_TIME[1]
+stop_hour_on = od_config.STOP_TIME[0]
+stop_min_on = od_config.STOP_TIME[1]
 
 for job in cron:
   if job.comment in jobs:

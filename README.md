@@ -24,6 +24,14 @@ The ai4coral is based on client-server arquitecture
     $ make run_frame_engine
     
 # 5 - Project Structure
+
+# How setup the scheduler
+
+## What is the scheduler for anyway? the scheduler is a module developed to define the hour and minute
+## when the microservices are launched and stoped every day. 
+## to use it run : 
+$ make setup_scheduler
+
 ``` bash
 ai4coral/
 ├── coral_data
@@ -43,4 +51,4 @@ ai4coral/
 ├── resource
 ├── scripts
 └── venv
-```
+``` 

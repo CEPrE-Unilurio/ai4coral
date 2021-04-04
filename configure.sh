@@ -4,5 +4,6 @@
 
 # Export microservices packages to PYHTONPATH
 
+
 python resource/set_envs.py
 source ~/.bashrc

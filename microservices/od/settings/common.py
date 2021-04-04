@@ -26,3 +26,11 @@ SOURCE_NAME = 'ai4coral'
 THRESHOLD = 0.4
 
 LABELS = None  
+
+#######################   SCHEDULER CONFIGURATIONS ###################
+
+# the services are launched and stoped every day, you just have to define the hour and minute of the day
+# to launch and stop them
+#  
+START_TIME = (18, 30) # use this to define the hour and minute when the services are launched
+STOP_TIME = (18, 32) # use this to define the hour and minute when the services are stoped

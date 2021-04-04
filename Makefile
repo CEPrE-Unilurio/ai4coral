@@ -13,6 +13,8 @@ deploy=false
 
 setup:
 	@bash scripts/setup.sh $(deploy)
+setup_scheduler:
+	python $(MS_DIR)/scheduler.py
 start_api:
 	python $(MS_DIR)/service_ctl.py start --service ai4coral_api
 stop_api:
