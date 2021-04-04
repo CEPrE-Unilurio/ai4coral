@@ -16,6 +16,7 @@ LOG_DIR = join(AI4CORAL_DIR, 'logs')
 ERROR_LOG = {'filename': join(LOG_DIR, 'api_error.log'), 'name': 'api_error_logger'} 
 WARNING_LOG = {'filename':join(LOG_DIR, 'api_warning.log'), 'name': 'api_warning_logger'} 
 TIMING_LOG = {'filename': join(LOG_DIR, 'api_timing.csv'), 'name': 'api_timing_logger'} 
+SCHEDULER_LOG = {'filename': join(LOG_DIR, 'scheduler.csv'), 'name': 'scheduler_logger'} 
 
 ###### MODEL CONFIGURATION ################################
 

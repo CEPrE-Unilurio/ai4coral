@@ -13,7 +13,10 @@ r""" Control the services that coordinate to do object detections
 
     to restart  the api do:
       python service_ctl restart --service ai4coral_api
-      
+  
+  COLUMNS for scheduler log file
+    MSG, SERVICE_NAME, TIME_STAMP       
+
 """
 
 from od import ai4coral_api
@@ -25,6 +28,9 @@ from absl import app
 from absl import flags
 from od.utils.logger import logger
 
+scheduler_log = logger(name=od_config.SCHEDULER_LOG['name'], filename=od_config.SCHEDULER_LOG['filename'], 
+                  fmt='%(asctime)s, %(message)s')
+
 error_log = logger(name=od_config.ERROR_LOG['name'], filename=od_config.ERROR_LOG['filename'])
 
 services = ['ai4coral_api', 'frame_engine']
@@ -32,6 +38,10 @@ commands = ['start', 'stop', 'restart']
 PID = str(os.getpid())
 flags.DEFINE_string('service', None, 'The name of the service to start | stop | restart')
 FLAGS = flags.FLAGS
+
+
+def log(msg, service_name):
+  scheduler_log.info(f'{msg}, {service_name}')
 
 def main(argv):
   command = argv[1]
@@ -43,23 +53,28 @@ def main(argv):
   def start():
     if FLAGS.service == 'ai4coral_api':
       os.system('fuser -k 8080/tcp')
+      log('STARTING', FLAGS.service)
       ai4coral_api.run()
     elif FLAGS.service == 'frame_engine':
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','w') as fe_pidfile:
         fe_pidfile.write(PID)
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
         if fe_pidfile.readlines()[0].strip() == PID:
+          log('STARTING', FLAGS.service)
           VideoStream(src = str(fe_config.DATA_TEST_DIR) + '/test_video.mp4',
                         show_frame=False)
 
   def stop():
     if FLAGS.service == 'ai4coral_api':
+      log('STOPING', FLAGS.service)
       os.system('fuser -k 8080/tcp')  
     elif FLAGS.service == 'frame_engine':
       with open(f'{fe_config.FE_DIR}/{FLAGS.service}.pid','r') as fe_pidfile:
-        PID = int(fe_pidfile.readlines()[0].strip())  
+        PID = int(fe_pidfile.readlines()[0].strip())
+        log('STOPING', FLAGS.service)  
         os.kill(PID, signal.SIGKILL)
       os.system(f'rm {fe_config.FE_DIR}/{FLAGS.service}.pid')
+  
   if command == 'start':
     try:
       start()

@@ -7,10 +7,10 @@ jobs = ['start_api', 'stop_api', 'start_frame_engine', 'stop_frame_engine']
 MS_DIR = f'{od_config.AI4CORAL_DIR}/microservices'
 cron = CronTab(user=True)
 
-start_min_on =  47
-start_hour_on = 18
-stop_min_on = 50
-stop_hour_on = 18
+start_hour_on = 5
+start_min_on =  0
+stop_hour_on = 17
+stop_min_on = 0
 
 for job in cron:
   if job.comment in jobs:
